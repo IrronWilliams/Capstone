@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from capstoneapp.models import DataSet
 import csv
 
+
 class Command(BaseCommand):
 
     def handle(self, *args, **options):

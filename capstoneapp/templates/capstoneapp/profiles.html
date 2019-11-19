@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Testing API/AJAX</h1>
+
+    <script>
+
+        console.log(api_key)
+
+        let url = 'https://api.propublica.org/congress/v1/115/senate/members.json'
+
+
+        axios({
+
+        url: url,
+        method: 'get',
+        headers: {
+            'X-API-Key':  api_keys
+        },
+        params: {},
+        })
+
+
+        console.log(api_key)
+ 
+
+    </script>
+
+</body>
+</html>
