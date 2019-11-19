@@ -41,17 +41,19 @@ class Command(BaseCommand):
             print(state)
             political_party = (member['party'])
             print(political_party)
-            #term_end = (member['next_election']) #getting a Key Error
-            #print (term_end)
+            next_election = (member['next_election']) 
+            print (next_election)
             contact_url =  (member['url'])
             print(contact_url)
 
-            profiles = Profile(first_name = first_name,
-                               last_name = last_name,
-                               state = state,
-                               political_party = political_party,
-                               #term_end = term_end,
-                               contact_url = contact_url)
+            profiles = Profile(
+                                first_name = first_name,
+                                last_name = last_name,
+                                state = state,
+                                political_party = political_party,
+                                next_election = next_election,
+                                contact_url = contact_url,
+                              )
             profiles.save()
 
 
