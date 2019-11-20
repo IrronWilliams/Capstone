@@ -10,10 +10,12 @@ import json
 
 # Process: get values out of dictionary, use values to create an instance of your model, save your model
 
+#python manage.py request_senator_profile #command that goes in command prompt
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        #python manage.py request_senator_profile #command that goes in command prompt
+        Profile.objects.all().delete() #deletes records in database before each migration. W/o statement, the migrations will just append to existing data
+        
         
         #requesting data from propublica, the API key is placed in headers
         response = requests.get('https://api.propublica.org/congress/v1/115/senate/members.json',  headers={"X-API-Key":"3sDNreokJVp2T8VaRkjH1IYfajWHFLhuOacgM8Qj"})

@@ -2,10 +2,11 @@ from django.core.management.base import BaseCommand
 from capstoneapp.models import DataSet
 import csv
 
-
+#python manage.py import_excel_files #command that goes in command prompt
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
+        DataSet.objects.all().delete() #deletes records in database before each migration. W/o statement, the migrations will just append to existing data
         with open('./capstoneapp/management/commands/Statistics.csv', newline='', encoding="UTF-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader: #process brings in the csv file. Associating each column of csv file to each column in model.  And aligns each row to a column. 
@@ -28,7 +29,7 @@ class Command(BaseCommand):
                 females_voted_percent = row ['Female_%Voted']
                 white_population_total = row ['White_non-Hispanic_Population_Total']
                 white_registered_total = row['White_non-Hispanic_Registered_Voters_Total']
-                white_registered_percent = row ['White_non-Hispanic_%Voted']
+                white_registered_percent = row ['White_non-Hispanic_Registered_Voters %']
                 white_voted_total = row ['White_non-Hispanic_Total_Voted']
                 white_voted_percent = row['White_non-Hispanic_%Voted']
                 black_population_total = row['Black_Population_Total']
