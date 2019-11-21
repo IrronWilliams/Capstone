@@ -14,12 +14,12 @@
 <body>
 <div class="container ">
 
-    <p class="text-center font-weight-bold text-uppercase "> US Voting Participation Summaries (2018 Mid-Term Turnout) </p>
+    <h3 class="font-weight-bold text-uppercase text-center "> US Voting Participation Summaries (2018 Mid-Term Turnout) </h3>
     <br>
-
-    <h3> Total US</h3>
-    <table class="table table-hover table-sm">
-            <thead>
+    
+    <h3 class="text-primary"> Total US </h3>
+    <table class="table table-hover table-sm table-bordered text-center text-secondary table-striped">
+            <thead class="thead-dark">
               <tr>
                 <!-- <th scope="col">#</th> -->
                 <th scope="col">State</th>
@@ -45,9 +45,9 @@
     </table>    
     <br>
 
-    <h3> Participation By Gender</h3>
-    <table class="table table-hover table-sm">
-            <thead>
+    <h3 class="text-warning"> Participation By Gender</h3>
+    <table class="table table-hover table-sm table-bordered text-center text-secondary table-striped">
+            <thead class="thead-dark">
               <tr>
                 <!-- <th scope="col">#</th> -->
                 <th scope="col">State</th>
@@ -83,9 +83,9 @@
     </table>    
     <br>
 
-    <h3> Participation By Race</h3>
-    <table class="table table-hover table-sm">
-                    <thead>
+    <h3 class="text-info"> Participation By Race (White/Black)</h3>
+    <table class="table table-hover table-sm table-bordered text-center text-secondary table-striped">
+                    <thead class="thead-dark">
                       <tr>
                         <!-- <th scope="col">#</th> -->
                         <th scope="col">State</th>
@@ -99,17 +99,7 @@
                         <th scope="col">Black Reg Voters%</th>
                         <th scope="col">Black Voters</th>
                         <th scope="col">Black Voters%</th>
-                        <th scope="col">Asian Population</th>
-                        <th scope="col">Asian Reg Voters</th>
-                        <th scope="col">Asian Reg Voters%</th>
-                        <th scope="col">Asian Voters</th>
-                        <th scope="col">Asian Voters%</th>
-                        <th scope="col">Hispanic Population</th>
-                        <th scope="col">Hispanic Reg Voters</th>
-                        <th scope="col">Hispanic Reg Voters%</th>
-                        <th scope="col">Hispanic Voters</th>
-                        <th scope="col">Hispanic Voters%</th>
-                      </tr>
+                       </tr>
                     </thead>
                     <tbody>
                         {% for row in data %}
@@ -126,25 +116,52 @@
                             <td>{{ row.black_registered_percent }}  </td>
                             <td>{{ row.black_voted_total }}  </td>
                             <td>{{ row.black_voted_percent }}  </td>
-                            <td>{{ row.asian_population_total }}  </td>
-                            <td>{{ row.asian_registered_total }}  </td>
-                            <td>{{ row.asian_registered_percent }}  </td>
-                            <td>{{ row.asian_voted_total }}  </td>
-                            <td>{{ row.asian_voted_percent }}  </td>
-                            <td>{{ row.hispanic_population_total }}  </td>
-                            <td>{{ row.hispanic_registered_total }}  </td>
-                            <td>{{ row.hispanic_registered_percent }}  </td>
-                            <td>{{ row.hispanic_voted_total }}  </td>
-                            <td>{{ row.hispanic_voted_percent }}  </td>
                         </tr> {% endfor %}       
                     </tbody>
    </table>
 
    <br>
+   <h3 class="text-success"> Participation By Race (Asian/Hispanic)</h3>
+   <table class="table table-hover table-sm table-bordered text-center text-secondary table-striped">
+                   <thead class="thead-dark">
+                     <tr>
+                       <!-- <th scope="col">#</th> -->
+                       <th scope="col">State</th>
+                       <th scope="col">Asian Population</th>
+                       <th scope="col">Asian Reg Voters</th>
+                       <th scope="col">Asian Reg Voters%</th>
+                       <th scope="col">Asian Voters</th>
+                       <th scope="col">Asian Voters%</th>
+                       <th scope="col">Hispanic Population</th>
+                       <th scope="col">Hispanic Reg Voters</th>
+                       <th scope="col">Hispanic Reg Voters%</th>
+                       <th scope="col">Hispanic Voters</th>
+                       <th scope="col">Hispanic Voters%</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                       {% for row in data %}
+                       <tr>
+                           <!-- <th scope="row">1</th> -->
+                           <td>{{ row.state }} </td>
+                           <td>{{ row.asian_population_total }}  </td>
+                           <td>{{ row.asian_registered_total }}  </td>
+                           <td>{{ row.asian_registered_percent }}  </td>
+                           <td>{{ row.asian_voted_total }}  </td>
+                           <td>{{ row.asian_voted_percent }}  </td>
+                           <td>{{ row.hispanic_population_total }}  </td>
+                           <td>{{ row.hispanic_registered_total }}  </td>
+                           <td>{{ row.hispanic_registered_percent }}  </td>
+                           <td>{{ row.hispanic_voted_total }}  </td>
+                           <td>{{ row.hispanic_voted_percent }}  </td>
+                       </tr> {% endfor %}       
+                   </tbody>
+  </table>
 
-    <h3> Participation By Age</h3>
-    <table class="table table-hover table-sm">
-                    <thead>
+  <br>
+    <h3 class="text-info"> Participation By Age (18-44)</h3>
+    <table class="table table-hover table-sm table-bordered text-center text-secondary table-striped">
+                    <thead class="thead-dark">
                       <tr>
                         <!-- <th scope="col">#</th> -->
                         <th scope="col">State</th>
@@ -163,16 +180,6 @@
                         <th scope="col">Reg Voters% 35-44</th>
                         <th scope="col">Voters 35-44</th>
                         <th scope="col">Voters% 35-44</th>
-                        <th scope="col">Population 45-64</th>
-                        <th scope="col">Reg Voters 45-64</th>
-                        <th scope="col">Reg Voters% 45-64</th>
-                        <th scope="col">Voters 45-64</th>
-                        <th scope="col">Voters% 45-64</th>
-                        <th scope="col">Population 65+</th>
-                        <th scope="col">Reg Voters 65+</th>
-                        <th scope="col">Reg Voters% 65+</th>
-                        <th scope="col">Voters 65+</th>
-                        <th scope="col">Voters% 65+</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -195,21 +202,47 @@
                             <td>{{ row.age_35to44_registered_percent }}  </td>
                             <td>{{ row.age_35to44_voted_total }}  </td>
                             <td>{{ row.age_35to44_voted_percent }}  </td>
-                            <td>{{ row.age_45to64_population_total }}  </td>
-                            <td>{{ row.age_45to64_registered_total }}  </td>
-                            <td>{{ row.age_45to64_registered_percent }}  </td>
-                            <td>{{ row.age_45to64_voted_total}}  </td>
-                            <td>{{ row.age_45to64_voted_percent  }}  </td>
-                            <td>{{ row.age_65plus_population_total }}  </td>
-                            <td>{{ row.age_65plus_registered_total}}  </td>
-                            <td>{{ row.age_65plus_registered_percent }}  </td>
-                            <td>{{ row.age_65plus_voted_total}}  </td>
-                            <td>{{ row.age_65plus_voted_percent  }}  </td>
-
-                        </tr> {% endfor %}       
+                          </tr> {% endfor %}       
                     </tbody>
    </table>
+   <br>
+   <h3 class="text-success"> Participation By Age (45-65+)</h3>
+   <table class="table table-hover table-sm table-bordered text-center text-secondary table-striped">
+                   <thead class="thead-dark">
+                     <tr>
+                       <!-- <th scope="col">#</th> -->
+                       <th scope="col">State</th>
+                       <th scope="col">Population 45-64</th>
+                       <th scope="col">Reg Voters 45-64</th>
+                       <th scope="col">Reg Voters% 45-64</th>
+                       <th scope="col">Voters 45-64</th>
+                       <th scope="col">Voters% 45-64</th>
+                       <th scope="col">Population 65+</th>
+                       <th scope="col">Reg Voters 65+</th>
+                       <th scope="col">Reg Voters% 65+</th>
+                       <th scope="col">Voters 65+</th>
+                       <th scope="col">Voters% 65+</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                       {% for row in data %}
+                       <tr>
+                           <!-- <th scope="row">1</th> -->
+                           <td>{{ row.state }} </td>
+                           <td>{{ row.age_45to64_population_total }}  </td>
+                           <td>{{ row.age_45to64_registered_total }}  </td>
+                           <td>{{ row.age_45to64_registered_percent }}  </td>
+                           <td>{{ row.age_45to64_voted_total}}  </td>
+                           <td>{{ row.age_45to64_voted_percent  }}  </td>
+                           <td>{{ row.age_65plus_population_total }}  </td>
+                           <td>{{ row.age_65plus_registered_total}}  </td>
+                           <td>{{ row.age_65plus_registered_percent }}  </td>
+                           <td>{{ row.age_65plus_voted_total}}  </td>
+                           <td>{{ row.age_65plus_voted_percent  }}  </td>
 
+                       </tr> {% endfor %}       
+                   </tbody>
+  </table>
     <!--  
         To print/display a variable from model in a template, use double curly brackets wth variables name inside 
         {% for row in data %}  created a variable called data on in census view, which brings in all rows of data. command loops over each row of model. the word "data" (for row in data) needs to match the variable name on the view 
