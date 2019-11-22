@@ -18,7 +18,7 @@ class Command(BaseCommand):
         
         
         #requesting data from propublica, the API key is placed in headers
-        response = requests.get('https://api.propublica.org/congress/v1/115/senate/members.json',  headers={"X-API-Key":"3sDNreokJVp2T8VaRkjH1IYfajWHFLhuOacgM8Qj"})
+        response = requests.get('https://api.propublica.org/congress/v1/116/senate/members.json',  headers={"X-API-Key":"3sDNreokJVp2T8VaRkjH1IYfajWHFLhuOacgM8Qj"})
          
         #print(response.text)
         #return

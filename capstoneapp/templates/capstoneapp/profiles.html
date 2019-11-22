@@ -5,13 +5,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+
+    <!-- Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
-    <h1>Testing API/AJAX</h1>
+<div class="container">
+
+    <h1>US Senator Profiles</h1>
+        <h3 class="text-primary"> Democrats </h3>
+    <table class="table table-hover table-sm table-bordered text-center text-secondary table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <!-- <th scope="col">#</th> -->
+                <th scope="col">State</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Political Party</th>
+                <th scope="col">URL</th>
+                <th scope="col">Next Election</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for row in democrats %}
+                <tr>
+                    <!-- <th scope="row">1</th> -->
+                    <td>{{ row.state }} </td>
+                    <td>{{ row.first_name }}  </td>
+                    <td>{{ row.last_name }}  </td>
+                    <td>{{ row.political_party }}  </td>
+                    <td>{{ row.contact_url }}  </td>
+                    <td>{{ row.next_election }}  </td>
+                </tr> {% endfor %}       
+            </tbody>
+    </table>    
+    <br>
+         <h3 class="text-primary"> Republicans </h3>
+    <table class="table table-hover table-sm table-bordered text-center text-secondary table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <!-- <th scope="col">#</th> -->
+                <th scope="col">State</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Political Party</th>
+                <th scope="col">URL</th>
+                <th scope="col">Next Election</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for row in republicans %}
+                <tr>
+                    <!-- <th scope="row">1</th> -->
+                    <td>{{ row.state }} </td>
+                    <td>{{ row.first_name }}  </td>
+                    <td>{{ row.last_name }}  </td>
+                    <td>{{ row.political_party }}  </td>
+                    <td>{{ row.contact_url }}  </td>
+                    <td>{{ row.next_election }}  </td>
+                </tr> {% endfor %}       
+            </tbody>
+    </table>    
+    <br>
+    <h3 class="text-primary"> Independents </h3>
+    <table class="table table-hover table-sm table-bordered text-center text-secondary table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <!-- <th scope="col">#</th> -->
+                <th scope="col">State</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Political Party</th>
+                <th scope="col">URL</th>
+                <th scope="col">Next Election</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for row in independents %}
+                <tr>
+                    <!-- <th scope="row">1</th> -->
+                    <td>{{ row.state }} </td>
+                    <td>{{ row.first_name }}  </td>
+                    <td>{{ row.last_name }}  </td>
+                    <td>{{ row.political_party }}  </td>
+                    <td>{{ row.contact_url }}  </td>
+                    <td>{{ row.next_election }}  </td>
+                </tr> {% endfor %}       
+            </tbody>
+    </table>    
+    <br>
+      
+
+
+
+    {% for row in democrats %}
+    <div>
+        {{row.state}}
+        {{row.first_name}}
+        {{row.last_name}}
+        {{row.political_party}}
+        {{row.contact_url}}
+        {{row.next_election}}
+        
+    
+    </div>
+
+    {% endfor %}
+
+    {% for row in republicans %}
+    <div>
+        {{row.state}}
+        {{row.first_name}}
+        {{row.last_name}}
+        {{row.political_party}}
+        {{row.contact_url}}
+        {{row.next_election}}
+        
+    
+    </div>
+
+    {% endfor %}
+
+    {% for row in independents %}
+    <div>
+        {{row.state}}
+        {{row.first_name}}
+        {{row.last_name}}
+        {{row.political_party}}
+        {{row.contact_url}}
+        {{row.next_election}}
+        
+    
+    </div>
+
+    {% endfor %}
+
+</div>
+
+   
 
     
  
-
+<!-- Bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  
    
 </body>
 </html>
+
+ <!--  
+        To print/display a variable from model in a template, use double curly brackets wth variables name inside 
+        {% for row in data %}  created a variable called data on in census view, which brings in all rows of data. command loops over each row of model. the word "data" (for row in data) needs to match the variable name on the view 
+        <div> 
+        <p> {{ row.state }}   </p> 
+        <p> {{ row.population_total }}   </p> 
+        
+        </div>
+        {% endfor %}
+    -->

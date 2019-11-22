@@ -22,8 +22,26 @@ def census(request):
 
 #localhost:8000/profiles
 def profiles(request):
-    return HttpResponse('Page reserved for senators profiles')
-    
+    #return HttpResponse('Page reserved for senators profiles')
+    profiles = Profile.objects.order_by('political_party', 'state')
+    context = {}
+
+    democrats = Profile.objects.filter(political_party='D')
+    context = {}
+
+    republicans = Profile.objects.filter(political_party='R')
+    context = {}
+
+    independents = Profile.objects.filter(political_party='ID')
+    context = {
+                "profiles" : profiles,
+                "independents" : independents,
+                "democrats" : democrats,
+                "republicans" : republicans,}
+
+
+    return render(request, 'capstoneapp/profiles.html', context) 
+
 #localhost:8000/about
 def about(request):
     return HttpResponse('Page reserved for historical summary of US voting..chart showing voter participation from 1900 to present  ')
