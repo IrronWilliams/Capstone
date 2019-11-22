@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('capstoneapp.urls'))
-]
+
+]  +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # adding route to access media files
+                                                                     # this gives user ability to access the files statically 
+                                                                     # there is built in access restriction, so anyone with a valid link can view and download file
