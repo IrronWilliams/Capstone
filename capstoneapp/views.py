@@ -1,4 +1,4 @@
-from django.shortcuts import HttpResponse, render
+from django.shortcuts import HttpResponse, render, reverse
 from .models import DataSet, Profile
 from django.utils import timezone 
 
@@ -26,13 +26,13 @@ def profiles(request):
     profiles = Profile.objects.order_by('political_party', 'state')
     context = {}
 
-    democrats = Profile.objects.filter(political_party='D')
+    democrats = Profile.objects.filter(political_party='D').order_by('state')
     context = {}
 
-    republicans = Profile.objects.filter(political_party='R')
+    republicans = Profile.objects.filter(political_party='R').order_by('state')
     context = {}
 
-    independents = Profile.objects.filter(political_party='ID')
+    independents = Profile.objects.filter(political_party='ID').order_by('state')
     context = {
                 "profiles" : profiles,
                 "independents" : independents,
@@ -49,3 +49,23 @@ def about(request):
 #localhost:8000/vote
 def vote(request):
     return HttpResponse('Page reserved for voter registration form')
+
+#localhost:8000/base
+def base(request):
+    #return HttpResponse('THIS IS THE BASE PAGE')
+    return render(request, 'capstoneapp/base.html') 
+
+#localhost:8000/charts
+def charts(request):
+    #return HttpResponse('THIS IS MY D3 PAGE')
+    return render(request, 'capstoneapp/charts.html')
+
+#localhost:8000/totalvotes
+def totalvotes(request):
+    return HttpResponse('THIS IS TOTAL US VOTES')
+    #return render(request, 'capstoneapp/totalvotes.html')
+
+#localhost:8000/trendline
+def trendline(request):
+    #return HttpResponse('HISTORICAL ')
+    return render(request, 'capstoneapp/trendline.html')

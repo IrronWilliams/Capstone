@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    
+    <title>Document</title>
+   
+    <!-- Bootstrap stylesheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Fonts and CSS stylesheet -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' href=''>
+
+    <style>
+
+        body {
+            font-family: "Open Sans", sans-serif;
+            font-size: 16px;
+            padding: 40px;
+        }
+
+ 
+        a{
+        color: #333399;
+        }
+        a:hover{
+        color: #FF0099;
+        }
+
+        .states {
+            stroke: #fff;
+            stroke-width:1px;
+        }
+        .states:hover{
+        opacity: .6;
+        }
+
+        .legendLinear text {
+            font-size: 12px;
+        }
+        .d3-tip {
+        line-height: 1;
+        padding: 12px;
+        background: rgba(43,43,43, 0.8);
+        color: #fff;
+        border-radius: 2px;
+        }
+
+</style>
+   
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="title has-text-centered">Voter Participation Rates by State (Total US)</h1>
+
+    <p> Data source: 2018 midterm census</p>
+
+    <div id="vis"></div>
+
+    <!-- D3.js CDN sources -->
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script src="//d3js.org/queue.v1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+        <script>
+            //defining size of the svg canvas
+            let width = 900; //900
+                height = 630; //700
+
+            let tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-5, 0])
+            .html(function(d) {
+                let dataRow = countryById.get(d.properties.name);
+                if (dataRow) {
+                    console.log(dataRow);
+                    return dataRow.states + ": " + dataRow.votes;
+                } else {
+                    console.log("no dataRow", d);
+                    return d.properties.name + ": No data.";
+                }
+            })
+
+
+            let svg = d3.select('#vis').append('svg')
+                .attr('width', width)
+                .attr('height', height);
+
+            svg.call(tip);
+
+            let projection = d3.geo.albersUsa()
+                .scale(1200) // adjusts the scale
+                .translate([width / 2, height / 2]);
+
+            let path = d3.geo.path()
+                .projection(projection);
+
+            let colorScale = d3.scale.linear().range(["#f6ddcc", "#ba4a00"]).interpolate(d3.interpolateLab);
+
+            let countryById = d3.map();
+
+            // queuing because I have more than 1 data file to load.
+            queue()
+                .defer(d3.json, " {% static 'capstoneapp/usstates.json' %}")
+                .defer(d3.csv, "{% static 'capstoneapp/votes.csv' %}", typeAndSet) //assining processing variable typeAndSet
+                .await(loaded);
+
+            function typeAndSet(d) {
+                d.votes = +d.votes; //the + converts the votes column into a number
+                countryById.set(d.states, d); //retrieving the states column 
+                return d;
+            }
+
+            function getColor(d) {
+                let dataRow = countryById.get(d.properties.name);
+                if (dataRow) {
+                    console.log(dataRow);
+                    return colorScale(dataRow.votes);
+                } else {
+                    console.log("no dataRow", d);
+                    return "#ccc";
+                }
+            }
+
+            function loaded(error, usa, votes) {
+
+                console.log(usa);
+                console.log(votes);
+
+                colorScale.domain(d3.extent(votes, function(d) {return d.votes;}));
+
+                let states = topojson.feature(usa, usa.objects.units).features;
+
+                svg.selectAll('path.states')
+                    .data(states)
+                    .enter()
+                    .append('path')
+                    .attr('class', 'states')
+                    .attr('d', path)
+                    .on('mouseover', tip.show)
+                    .on('mouseout', tip.hide)
+                    .attr('fill', function(d,i) {
+                        console.log(d.properties.name);
+                        return getColor(d);
+                    })
+                    .append("title");
+
+                let linear = colorScale;
+
+                svg.append("g")
+                .attr("class", "legendLinear")
+                .attr("transform", "translate(20,20)");
+
+                let legendLinear = d3.legend.color()
+                .shapeWidth(30)
+                .orient('horizontal')
+                .scale(linear);
+
+                svg.select(".legendLinear")
+                .call(legendLinear);
+
+            }
+
+        </script>
+
+
+
+    </div>
+
+
+   
+
+    
+    <!--Bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

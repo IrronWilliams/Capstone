@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'capstoneapp',
+    'django.contrib.humanize', #used to insert commas in numbers from charts
+     
 ]
 
 MIDDLEWARE = [

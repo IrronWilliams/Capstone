@@ -1,0 +1,52 @@
+﻿id,code,states,comment,votes
+1,AL,Alabama,testing,48.8
+2,AK,Alaska,testing,50.2
+3,AZ,Arizona,testing,52.2
+5,AR,Arkansas,testing,40.6
+6,CA,California,testing,43.8
+8,CO,Colorado,testing,53.8
+9,CT,Connecticut,testing,48.3
+10,DE,Delaware,testing,48.8
+11,DC,District of Columbia,testing,55.2
+12,FL,Florida,testing,47.0
+13,GA,Georgia,testing,52.0
+15,HI,Hawaii,testing,40.4
+16,ID,Idaho,testing,45.2
+17,IL,Illinois,testing,48.7
+18,IN,Indiana,testing,47.2
+19,IA,Iowa,testing,56.2
+20,KS,Kansas,testing,53.6
+21,KY,Kentucky,testing,51.8
+22,LA,Louisiana,testing,47.9
+23,ME,Maine,testing,64.5
+24,MD,Maryland,testing,49.7
+25,MA,Massachusetts,testing,50.0
+26,MI,Michigan,testing,57.7
+27,MN,Minnesota,testing,59.5
+28,MS,Mississippi,testing,53.8
+29,MO,Missouri,testing,53.7
+30,MT,Montana,testing,63.0
+31,NE,Nebraska,testing,47.3
+32,NV,Nevada,testing,43.3
+33,NH,New Hampshire,testing,53.3
+34,NJ,New Jersey,testing,48.3
+35,NM,New Mexico,testing,45.3
+36,NY,New York,testing,43.8
+37,NC,North Carolina,testing,49.3
+38,ND,North Dakota,testing,59.8
+39,OH,Ohio,testing,51.1
+40,OK,Oklahoma,testing,47.1
+41,OR,Oregon,testing,58.2
+42,PA,Pennsylvania,testing,52.1
+44,RI,Rhode Island,testing,48.7
+45,SC,South Carolina,testing,46.9
+46,SD,South Dakota,testing,51.0
+47,TN,Tennessee,testing,47.8
+48,TX,Texas,testing,42.2
+49,UT,Utah,testing,54.0
+50,VT,Vermont,testing,54.2
+51,VA,Virginia,testing,52.0
+53,WA,Washington,testing,56.0
+54,WV,West Virginia,testing,43.4
+55,WI,Wisconsin,testing,62.6
+56,WY,Wyoming,testing,51.2

@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+{% load humanize %} <!-- need to insert commas in numbers. type intcomma in rows-->
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -35,10 +38,10 @@
                 <tr>
                     <!-- <th scope="row">1</th> -->
                     <td>{{ row.state }} </td>
-                    <td>{{ row.population_total }}  </td>
-                    <td>{{ row.registered_voters_total }}  </td>
+                    <td>{{ row.population_total|intcomma }}  </td> 
+                    <td>{{ row.registered_voters_total |intcomma }}  </td>
                     <td>{{ row.registered_voters_percent }}  </td>
-                    <td>{{ row.total_voters }}  </td>
+                    <td>{{ row.total_voters |intcomma }}  </td>
                     <td>{{ row.total_voters_percent }}  </td>
                 </tr> {% endfor %}       
             </tbody>
@@ -51,7 +54,7 @@
               <tr>
                 <!-- <th scope="col">#</th> -->
                 <th scope="col">State</th>
-                <th scope="col">Male Population</th>
+                <th scope="col">Male Population </th>
                 <th scope="col">Male Reg Voters</th>
                 <th scope="col">Male Reg Voters%</th>
                 <th scope="col">Male Voters</th>
@@ -68,15 +71,15 @@
                 <tr>
                     <!-- <th scope="row">1</th> -->
                     <td>{{ row.state }} </td>
-                    <td>{{ row.males_population_total }}  </td>
-                    <td>{{ row.males_registered_total }}  </td>
+                    <td>{{ row.males_population_total |intcomma }}  </td>
+                    <td>{{ row.males_registered_total   |intcomma}}  </td>
                     <td>{{ row.males_registered_percent }}  </td>
-                    <td>{{ row.males_voted_total }}  </td>
+                    <td>{{ row.males_voted_total  |intcomma}}  </td>
                     <td>{{ row.males_voted_percent }}  </td>
-                    <td>{{ row.females_population_total }}  </td>
-                    <td>{{ row.females_registered_total }}  </td>
+                    <td>{{ row.females_population_total |intcomma }}  </td>
+                    <td>{{ row.females_registered_total |intcomma}}  </td>
                     <td>{{ row.females_registered_percent }}  </td>
-                    <td>{{ row.females_voted_total }}  </td>
+                    <td>{{ row.females_voted_total |intcomma }}  </td>
                     <td>{{ row.females_voted_percent }}  </td>
                 </tr> {% endfor %}       
             </tbody>
@@ -106,15 +109,15 @@
                         <tr>
                             <!-- <th scope="row">1</th> -->
                             <td>{{ row.state }} </td>
-                            <td>{{ row.white_population_total }}  </td>
-                            <td>{{ row.white_registered_total }}  </td>
+                            <td>{{ row.white_population_total |intcomma }}  </td>
+                            <td>{{ row.white_registered_total |intcomma}}  </td>
                             <td>{{ row.white_registered_percent }}  </td>
-                            <td>{{ row.white_voted_total }}  </td>
+                            <td>{{ row.white_voted_total |intcomma }}  </td>
                             <td>{{ row.white_voted_percent }}  </td>
-                            <td>{{ row.black_population_total }}  </td>
-                            <td>{{ row.black_registered_total }}  </td>
+                            <td>{{ row.black_population_total |intcomma}}  </td>
+                            <td>{{ row.black_registered_total |intcomma}}  </td>
                             <td>{{ row.black_registered_percent }}  </td>
-                            <td>{{ row.black_voted_total }}  </td>
+                            <td>{{ row.black_voted_total|intcomma }}  </td>
                             <td>{{ row.black_voted_percent }}  </td>
                         </tr> {% endfor %}       
                     </tbody>
@@ -144,15 +147,15 @@
                        <tr>
                            <!-- <th scope="row">1</th> -->
                            <td>{{ row.state }} </td>
-                           <td>{{ row.asian_population_total }}  </td>
-                           <td>{{ row.asian_registered_total }}  </td>
+                           <td>{{ row.asian_population_total|intcomma }}  </td>
+                           <td>{{ row.asian_registered_total |intcomma}}  </td>
                            <td>{{ row.asian_registered_percent }}  </td>
-                           <td>{{ row.asian_voted_total }}  </td>
+                           <td>{{ row.asian_voted_total|intcomma }}  </td>
                            <td>{{ row.asian_voted_percent }}  </td>
-                           <td>{{ row.hispanic_population_total }}  </td>
-                           <td>{{ row.hispanic_registered_total }}  </td>
+                           <td>{{ row.hispanic_population_total |intcomma }}  </td>
+                           <td>{{ row.hispanic_registered_total |intcomma }}  </td>
                            <td>{{ row.hispanic_registered_percent }}  </td>
-                           <td>{{ row.hispanic_voted_total }}  </td>
+                           <td>{{ row.hispanic_voted_total |intcomma}}  </td>
                            <td>{{ row.hispanic_voted_percent }}  </td>
                        </tr> {% endfor %}       
                    </tbody>
@@ -187,20 +190,20 @@
                         <tr>
                             <!-- <th scope="row">1</th> -->
                             <td>{{ row.state }} </td>
-                            <td>{{ row.age_18to24_population_total }}  </td>
-                            <td>{{ row.age_18to24_registered_total }}  </td>
+                            <td>{{ row.age_18to24_population_total |intcomma }}  </td>
+                            <td>{{ row.age_18to24_registered_total |intcomma}}  </td>
                             <td>{{ row.age_18to24_registered_percent }}  </td>
-                            <td>{{ row.age_18to24_voted_total }}  </td>
+                            <td>{{ row.age_18to24_voted_total |intcomma}}  </td>
                             <td>{{ row.age_18to24_voted_percent }}  </td>
-                            <td>{{ row.age_25to34_population_total }}  </td>
-                            <td>{{ row.age_25to34_registered_total }}  </td>
+                            <td>{{ row.age_25to34_population_total |intcomma}}  </td>
+                            <td>{{ row.age_25to34_registered_total |intcomma}}  </td>
                             <td>{{ row.age_25to34_registered_percent }}  </td>
-                            <td>{{ row.age_25to34_voted_total }}  </td>
+                            <td>{{ row.age_25to34_voted_total |intcomma}}  </td>
                             <td>{{ row.age_25to34_voted_percent }}  </td>
-                            <td>{{ row.age_35to44_population_total }}  </td>
-                            <td>{{ row.age_35to44_registered_total }}  </td>
+                            <td>{{ row.age_35to44_population_total |intcomma }}  </td>
+                            <td>{{ row.age_35to44_registered_total|intcomma }}  </td>
                             <td>{{ row.age_35to44_registered_percent }}  </td>
-                            <td>{{ row.age_35to44_voted_total }}  </td>
+                            <td>{{ row.age_35to44_voted_total |intcomma}}  </td>
                             <td>{{ row.age_35to44_voted_percent }}  </td>
                           </tr> {% endfor %}       
                     </tbody>
@@ -229,15 +232,15 @@
                        <tr>
                            <!-- <th scope="row">1</th> -->
                            <td>{{ row.state }} </td>
-                           <td>{{ row.age_45to64_population_total }}  </td>
-                           <td>{{ row.age_45to64_registered_total }}  </td>
+                           <td>{{ row.age_45to64_population_total |intcomma}}  </td>
+                           <td>{{ row.age_45to64_registered_total |intcomma }}  </td>
                            <td>{{ row.age_45to64_registered_percent }}  </td>
-                           <td>{{ row.age_45to64_voted_total}}  </td>
+                           <td>{{ row.age_45to64_voted_total |intcomma}}  </td>
                            <td>{{ row.age_45to64_voted_percent  }}  </td>
-                           <td>{{ row.age_65plus_population_total }}  </td>
-                           <td>{{ row.age_65plus_registered_total}}  </td>
+                           <td>{{ row.age_65plus_population_total |intcomma }}  </td>
+                           <td>{{ row.age_65plus_registered_total |intcomma}}  </td>
                            <td>{{ row.age_65plus_registered_percent }}  </td>
-                           <td>{{ row.age_65plus_voted_total}}  </td>
+                           <td>{{ row.age_65plus_voted_total |intcomma}}  </td>
                            <td>{{ row.age_65plus_voted_percent  }}  </td>
 
                        </tr> {% endfor %}       
