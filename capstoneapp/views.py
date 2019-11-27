@@ -62,8 +62,8 @@ def charts(request):
 
 #localhost:8000/totalvotes
 def totalvotes(request):
-    return HttpResponse('THIS IS TOTAL US VOTES')
-    #return render(request, 'capstoneapp/totalvotes.html')
+    #return HttpResponse('THIS IS TOTAL US VOTES')
+    return render(request, 'capstoneapp/totalusvotes.html')
 
 #localhost:8000/trendline
 def trendline(request):

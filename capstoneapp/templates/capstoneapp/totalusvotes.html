@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-{% load static %}
+{% load static %}  <!-- wrap other static statement around csv file-->
 
 <html lang="en">
 <head>
@@ -8,7 +8,7 @@
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
     <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
     
-    <title>Document</title>
+    <title>TotalVotesMap</title>
    
     <!-- Bootstrap stylesheet -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -57,9 +57,9 @@
 <body>
 
     <div class="container">
-        <h1 class="title has-text-centered">Voter Participation Rates by State (Total US)</h1>
+        <h2 class="title has-text-centered">US Voter Participation Rates by State (2018 Midterm Election)</h2>
 
-    <p> Data source: 2018 midterm census</p>
+    <p> Data source: US Census Bureau.</p>
 
     <div id="vis"></div>
 
@@ -171,10 +171,163 @@
 
         </script>
 
+        <p>The November 2018 election resulted in a historic 11 percentage point increase compared to the 2014 midterm election.
+           The 11% increase was driven by stronger voter participation rates among all voting age and major
+           racial and ethnic groups. 53% of the voting-age population voted in 2018, making the year the highest midterm turnout in four decades.  The historic turnout reversed
+           the trajectory of the 2014 election, which had the lowest engagement rate at 42%.  </p>
 
+        <p>Below is a summary of demographic groups influencing the hisoric 11% increase in the 2018 midterm election.</p>   
+        
+        <table class="table table-sm table-hover text-center">
+        <thead>
+            <tr>
+            <th scope="col">Demographic</th>
+            <th scope="col">2014 Voter Participation</th>
+            <th scope="col">2018 Voter Participation</th>
+            <th scope="col">Variance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Total</th>
+                <td>41.9</td>
+                <td>53.4</td>
+                <td>11.5</td>
+            </tr>
+            <tr>
+                <th scope="row">18-29</th>
+                <td>19.9</td>
+                <td>35.6</td>
+                <td>15.7</td>
+            </tr>
+            <tr>
+                <th scope="row">30-44</th>
+                <td>35.6</td>
+                <td>48.8</td>
+                <td>13.2</td>
+            </tr>
+            <tr>
+            <th scope="row">45-64</th>
+                <td>49.6</td>
+                <td>59.5</td>
+                <td>9.9</td>
+            </tr>
+            <tr>
+            <th scope="row">Male</th>
+                <td>40.8</td>
+                <td>51.8</td>
+                <td>10.9</td>
+            </tr>
+            <tr>
+            <th scope="row">Female</th>
+                <td>43.0</td>
+                <td>55.0</td>
+                <td>12.0</td>
+            </tr>
+            <tr>
+            <th scope="row">White</th>
+                <td>45.8</td>
+                <td>57.5</td>
+                <td>11.7</td>
+            </tr>
+            <tr>
+            <th scope="row">Black</th>
+                <td>40.6</td>
+                <td>51.4</td>
+                <td>10.8</td>
+            </tr>    
+            <tr>
+            <th scope="row">Asian</th>
+                <td>26.9</td>
+                <td>40.2</td>
+                <td>13.3</td>
+            </tr>
+            <tr>
+            <th scope="row">Hipanic</th>
+                <td>27.0</td>
+                <td>40.4</td>
+                <td>13.4</td>
+            </tr>
+            <tr>
+            <th scope="row">Less H.S. Diploma</th>
+                <td>22.2</td>
+                <td>27.2</td>
+                <td>5.0</td>
+            </tr>
+            <tr>
+            <th scope="row">H.S. Diploma/Equiv.</th>
+                <td>33.9</td>
+                <td>42.1</td>
+                <td>8.2</td>
+            </tr>
+            <tr>
+            <th scope="row">Some College/Assoc.</th>
+                <td>41.7</td>
+                <td>54.5</td>
+                <td>12.8</td>
+            </tr>
+            <tr>
+            <th scope="row">Bachelors Degree</th>
+                <td>53.2</td>
+                <td>65.7</td>
+                <td>12.5</td>
+            </tr>
+            <tr>
+            <th scope="row">Advanced Degree</th>
+                <td>62.0</td>
+                <td>74.0</td>
+                <td>12.0</td>
+            </tr>
+            <tr>
+            <th scope="row">Native-Born Citizen</th>
+                <td>42.7</td>
+                <td>54.2</td>
+                <td>11.5</td>
+            </tr>
+            <tr>
+            <th scope="row">Naturalized Citizen</th>
+                <td>34.1</td>
+                <td>45.7</td>
+                <td>11.7</td>
+            <tr>
+            <th scope="row">Metropolitan Area</th>
+                <td>41.5</td>
+                <td>53.7</td>
+                <td>12.2</td>
+            <tr>
+            <th scope="row">Nonmetropolitan</th>
+                <td>44.3</td>
+                <td>52.1</td>
+                <td>7.7</td>
+            </tr>
+            </tr>
+            </tr>
+        </tbody>
+            
+        </table>
+
+        <ul class="list-unstyled">
+        <li >A Few Highlights...
+            <ul>
+            <li>Young voters were highly energized! With a 79% increase, voter turnout among 18 to 29 year olds had the largest percentage increase for any group any age group. </li>
+            <li>Among men and women, voter turnout increased by 11 and 12 percentage points respectively.</li>
+            <li>Voter turnout increased among non-Hispanic Asians by 13 percentage points, a 49 percent increase.</li>
+            <li>Among Hispanics, voter turnout increased by 13 percentage points, a 50 percent increase in Hispanic voter turnout.</li>
+            <li>Non-Hispanic black voter turnout increased by 11 percentage points.</li>
+            <li>Those with higher levels of education had higher levels of voter turnout in 2018.  Those with less than a high school education had the smallest increase in voter turnout (5 percentage points). Those with a high school diploma or equivalent had the second-lowest increase (8 percentage points).</li>
+            <li>Voting by native-born and naturalized citizens showed comporable increases of 12 percentage points.</li>
+        </li>    
+        </ul>
+        <br>
+
+        <p>The November 2018 has been regarded as the New 'Year of the Woman'. As a result of the elections, more women are serving 
+           in Congress than ever before; including a record number of women elected to the House of 
+           Representatives. For every midterm election since 1998, woman continue to vote at higher rates than men. 
+           During the 2018 election, woman voted 3 percentae points higher than men, at rates of 55 and 52% respectively. </p>   
 
     </div>
 
+        
 
    
 

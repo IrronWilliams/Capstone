@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
 
-{% load static %}
+{% load static %} <!-- wrap other static statement around csv file-->
 
 <meta charset="utf-8">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Voter Turnout Rates</title>
+    <title>Historical Voting Rates</title>
     
   <!-- Bootstrap stylesheet -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -18,7 +18,7 @@
 <style>
 
 body {
-  font: 10px sans-serif;
+  font: 14px sans-serif;
 }
 
 .axis path,
@@ -52,7 +52,7 @@ body {
 <body>
 <div class = "container">
  <!-- Title -->
-        <h6 class="title has-text-centered font-weight-bold">National Midterm Election Turnout Rates: Historical Perspective  </h6>
+        <h6 class="title text-left font-weight-bold">National Midterm Election Turnout Rates: Historical Perspective  </h6>
 
     <button id="start" style="position: absolute; margin-left: 6px; margin-top: 6px;">Start Time Animation</button>
     <button id="reset" style="position: absolute; margin-left: 150px; margin-top: 6px">Reset</button>
@@ -192,8 +192,100 @@ body {
   });
 
   </script>
-
+     
 </div>
+    <br>
+    <br>
+    <p>__________________________________________________________________________________________________________________________________________</p>
+      <h4 class="subtitle text-left">Voting in America: Historical Persective</h4>
+      <table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Event</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1776</th>
+      <td>Voting is controlled by individual state legislatures. Only white men age 21 and older who own land can vote.</td>
+    </tr>
+    <tr>
+      <th scope="row">1848</th>
+      <td>Abolitionlists and pro women's suffrage groups first meet and organize in Senaca Falls.</td>
+    </tr>
+    <tr>
+      <th scope="row">1868</th>
+      <td>The 14th Amendment to the U.S. Constitution grants full citizenship rights, including voting rights, to all men born or naturalized in the United States. .</td>
+    </tr>
+    <tr>
+      <th scope="row">1870</th>
+      <td>The 15th Amendment eliminates racial barriers to voting. Many states continue practicing voter discrimination. Poll taxes, literacy tests, fraud, and intimidation still prevent many from voting. Native Americans are still denied the right to vote.</td>
+    </tr>
+    <tr>
+    <tr>
+      <th scope="row">1872</th>
+      <td>Activists Susan B. Anthony and Soujourner Truth are arrested for trying to vote. </td>
+    </tr>
+    <tr>
+      <th scope="row">1890</th>
+      <td>Wyoming becomes the first US state to grant women the right to vote.</td>
+    </tr>
+    <tr>
+      <th scope="row">1920</th>
+      <td>The 19th Amendment grants the women the right to vote nationwide. But not all Native American and Asian women have citzenship.</td>
+    </tr>
+    <tr>
+      <th scope="row">1924</th>
+      <td>Indian Citzenship Act is passed, giving Native Americans full citzenship. However many states disenfranchise them at the polls.</td>
+    </tr>
+    <tr>
+      <th scope="row">1952</th>
+      <td>McCarren-Walter Act is passed, grants all Asian Americans the right to become citizens and vote.</td>
+    </tr>
+    <tr>
+      <th scope="row">1961</th>
+      <td>23rd Amendment gives DC residents the right to vote for presidents, but not Congressional representation.</td>
+    </tr>
+    <tr>
+      <th scope="row">1965</th>
+      <td>Voting Rights Act is passed, removing discrimanatory barriers that kept many people of color from voting.</td>
+    </tr>
+    <tr>
+      <th scope="row">1971</th>
+      <td>Voting age is lowered from 21 to 18 in light of the Vietnam War; to ensure those old enouph to fight could vote.</td>
+    </tr>
+     <tr>
+      <th scope="row">1975</th>
+      <td>The federal Voting Rights Act is renewed, permanently banning literacy tests nationwide. Section 203 is added, requiring translated voting materials in areas with large numbers of citizens with limited English skills.</td>
+    </tr>
+   <tr>
+      <th scope="row">1984</th>
+      <td>The federal Voting Accessibility for the Elderly and Handicapped Act requires polling places to be accessible to people with disabilities.</td>
+    </tr>
+    <tr>
+      <th scope="row">1993</th>
+      <td>National Voter Registration Act is passed, making it easier to register at DMV's and public assistance centers.</td>
+    </tr>
+    <tr>
+      <th scope="row">2000</th>
+      <td>A federal court ruled that citizens of US territories like Puerto Rico and Guam CANNOT vote in federal elections.</td>
+    </tr>
+    <tr>
+      <th scope="row">2009</th>
+      <td>Washington becomes the second state in the U.S. (after Oregon) to vote entirely by mail rather than in person at the polls.</td>
+    </tr>
+    <tr>
+      <th scope="row">2018</th>
+      <td>Amendment 4 is passed, restoring voting rights to over 1.4 million Floridians with past felony convictions. However, efforts to block implementation of new law is under way. Opposing forces argue that payment of court fines and fees should be paid before people with felony records can regain the right to vote. </td>
+    </tr>
+
+
+  </tbody>
+</table>
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
