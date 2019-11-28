@@ -60,6 +60,11 @@ def charts(request):
     #return HttpResponse('THIS IS MY D3 PAGE')
     return render(request, 'capstoneapp/charts.html')
 
+#localhost:8000/chartsmale
+def chartsmale(request):
+    #return HttpResponse('HISTORICAL ')
+    return render(request, 'capstoneapp/chartsmale.html')
+
 #localhost:8000/totalvotes
 def totalvotes(request):
     #return HttpResponse('THIS IS TOTAL US VOTES')
@@ -69,3 +74,4 @@ def totalvotes(request):
 def trendline(request):
     #return HttpResponse('HISTORICAL ')
     return render(request, 'capstoneapp/trendline.html')
+

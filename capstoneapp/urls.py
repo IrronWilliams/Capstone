@@ -10,6 +10,7 @@ path('about/', views.about, name='about'),
 path('vote/', views.vote, name='vote'),
 path('base/', views.base, name='base'),
 path('charts/', views.charts, name='charts'),
+path('chartsmale/', views.chartsmale, name='chartsmale'),
 path('totalvotes/', views.totalvotes, name='totalvotes'),
 path('trendline/', views.trendline, name='trendline'),
 
