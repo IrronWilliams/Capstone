@@ -24,6 +24,13 @@
 <div class="container"> 
 
     <h3>Male Voting Participation By State</h3>
+
+        <p>There were wide differences in voting preferences between men and women. The gender gap in 
+            voting preference is not new, but in 2018, the gap was widest it has been in the past 20 years.
+            Women favored the Democratic candidate in their district by 19 percentage points (59% to 40%) while 
+            men voted for the Republican 51% to 47%.</p>   
+    
+        <p>At 62.4%, men had the highest voter turnout rates in Maine. Men....</p> 
     
     <!-- Create a div where the graph will take place -->
     <div id="donut"></div>
@@ -120,23 +127,28 @@
             })
         })()
 
+        
+        //Solution to keep multipe svg graphics on a single page.  Text needs to go outside of script and the name of the svgs has to be different
         // Immediately envoked function, keeps local variables inside
         // (function() {
             // ... Other code
         // })()
+        
         </script>        
 
-            <p>There were wide differences in voting preferences between men and women. The gender gap in 
-             voting preference is not new, but in 2018, the gap was widest it has been in the past 20 years.
-             Women favored the Democratic candidate in their district by 19 percentage points (59% to 40%) while 
-             men voted for the Republican 51% to 47%.</p>   
-       
-            <p>At 62.4%, men had the highest voter turnout rates in Maine. Men....</p>    
-
         <h3>Female Voting Participation By State </h3>
+          <p>The November 2018 has been regarded as the New 'Year of the Woman'. As a result of the elections, more women are serving 
+           in Congress than ever before; including a record number of women elected to the House of 
+           Representatives. For every midterm election since 1998, woman continue to vote at higher rates than men. 
+           During the 2018 election, woman voted 3 percentae points higher than men, at rates of 55 and 52% respectively. </p>   
+       
+          <p>At 66.6%, woman had the highest voter turnout rates in Maine. Woman voted at rates between 62-64% in states including Montana, Wisconsin, North_Dakota and Minnesota.
+           The states showing the lowest voting rates among women were Texas, West_Virginia, Nevada, Hawaii and Arkansas. 
+           Arkansas had the lowest rate at 41.8% </p>
+
 
         <!-- Create a div where the graph will take place -->
-        <div id="donut"></div>
+        <div id="donut2"></div>
 
             <script>
             (function() {
@@ -150,7 +162,7 @@
             let radius = Math.min(width, height) / 2 - margin
 
             // append the svg object to the div called 'donut'
-            let svg = d3.select("#donut")
+            let svg = d3.select("#donut2")
             .append("svg")
                 .attr("width", width)
                 .attr("height", height)
@@ -232,15 +244,7 @@
 
             </script>            
 
-       
-        <p>The November 2018 has been regarded as the New 'Year of the Woman'. As a result of the elections, more women are serving 
-           in Congress than ever before; including a record number of women elected to the House of 
-           Representatives. For every midterm election since 1998, woman continue to vote at higher rates than men. 
-           During the 2018 election, woman voted 3 percentae points higher than men, at rates of 55 and 52% respectively. </p>   
-       
-        <p>At 66.6%, woman had the highest voter turnout rates in Maine. Woman voted at rates between 62-64% in states including Montana, Wisconsin, North_Dakota and Minnesota.
-           The states showing the lowest voting rates among women were Texas, West_Virginia, Nevada, Hawaii and Arkansas. 
-           Arkansas had the lowest rate at 41.8% </p>
+ 
 
 </div>
 
