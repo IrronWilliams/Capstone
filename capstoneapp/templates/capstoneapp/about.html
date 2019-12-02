@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+
+{% load static %} <!-- wrap other static statement around csv file-->
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- meta syntax needed for animated trend chart. -->
+    <!-- To get x axis (dates) to appear... Shift + refresh browser -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+    
+    <!-- meta syntax needed for US Map-->
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>About</title>
+
+   <!-- Load font for donut charts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet"> 
+
+
+<!-- Bootstrap File-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<!-- CSS file for US Map-->
+<link rel="stylesheet" type="text/css" href="{% static 'capstoneapp/style.css' %}">  
+
+<!-- Styling is for Animated Trend Chart-->
+<style>
+  
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+    
+    .x.axis path {
+        display: none;
+    }
+    
+    .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+    }
+    
+    .overlay {
+        fill: none;
+        pointer-events: all;
+    }
+    
+    .focus circle {
+        fill: none;
+        stroke: steelblue;
+    }
+   
+    </style>
+
+</head>
+
+
+<body>
+<div class="container">
+
+<!--Start Home Section. ID for Bootstrap Scroll Spy. 1st Id for the home navigation link-->
+<div id="home"> </div>
+
+<!-- Start Navigation -->
+    <ul class="nav nav-pills justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Active</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+    </ul>
+    <br>
+    <br>
+        <p class="lead">Balance The Ballot is a informational voting website. The site is designed to be an informational
+           resource for voting.  Our goal is to inform, inspire and increase voter participation.  </p>
+
+        <p>The US Democracy is a system renowed but has it complications. Below is a brief history of voting in US</p>
+    <br>
+    <br>
+    <br>
+    <!-- Beg div for tend-line -->
+    <div class="trend-line">  
+        <h6 class="title text-left font-weight-bold">National Midterm Election Turnout Rates: Historical Perspective  </h6>
+
+        <button id="start" style="position: absolute; margin-left: 6px; margin-top: 6px;">Start Animation</button>
+        <button id="reset" style="position: absolute; margin-left: 150px; margin-top: 6px">Reset</button>
+        <p style="position: absolute; margin-left: 212px; margin-top: 12px; text-size: 12px">Start animation, then hover over line to see percentages.</p>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    
+        
+        <script>
+        (function() {
+        //begin script for trend chart
+        let margin = {top: 60, right: 60, bottom: 30, left: 60},
+            width = 700 - margin.left - margin.right,
+            height = 365 - margin.top - margin.bottom;
+
+        // Parsing data to show in tooltip
+        let parseDate = d3.time.format("%Y").parse, //formatters for how data formatted in csv; %Y for full year 
+            bisectDate = d3.bisector(function(d) { return d.date; }).left,
+            formatValue = d3.format(",.2f"),
+            formatCurrency = function(d) { return formatValue(d) + "%"; };
+
+        let x = d3.time.scale()
+            .range([0, width]);
+
+        let y = d3.scale.linear()
+            .range([height, 0]);
+
+        let xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+        let yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left");
+
+        let line = d3.svg.line()
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(d.rate); });
+
+        let svg = d3.select("body").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        d3.csv("{% static 'capstoneapp/voter_rates_midterm.csv' %}", function(error, data) {
+            if (error) throw error;
+            console.log(data);
+
+            data.forEach(function(d) { //looping through each row parsing date and converting rate column
+                d.date = parseDate(d.date);
+                d.rate = +d.rate; // + converts rate column to number
+            });
+
+            x.domain(d3.extent(data, function(d) { return d.date; }));
+            y.domain(d3.extent(data, function(d) { return d.rate; }));
+
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("turnout (%)");
+
+            //this is where the line is created and the data is being bound to the line, where the svg path is appended to page
+            // To start animation on click, put the entire creation of SVG and associated animating transiton 
+            //within the D3 click event
+            d3.select("#start").on("click", function() {
+                let path = svg.append("path")
+                .datum(data)
+                .attr("class", "line")
+                .attr("d", line);
+
+            //The block of code for totalLength and path gets the total length of the line,
+            //sets the dasharry and dashoffset properties to the total length, 
+            //then sets up the transition to adjust the dash offset to zero.
+            //this leads to an animation that makes the graph appear that it is unraveling over time.
+
+            // Variable to hold total length of the path, needed for stroke dash affect 
+            let totalLength = path.node().getTotalLength();
+
+            // Set Properties of Dash Array and Dash Offset and initiate Transition (unrolls the line on chart)
+            path
+                .attr("stroke-dasharray", totalLength + " " + totalLength)
+                .attr("stroke-dashoffset", totalLength)
+                .transition() // Call Transition Method
+                .duration(4000) // Set Duration timing (ms)
+                .ease("linear") // Set Easing option
+                .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
+
+            // Create SVG for Tooltip and Circle on Mouseover
+            let focus = svg.append("g")
+                .attr("class", "focus")
+                .style("display", "none");
+
+            // Append a circle to show on Mouseover
+            focus.append("circle")
+                .attr("r", 4.5);
+
+            // Append text to show on Mouseover
+            focus.append("text")
+                .attr("x", 9)
+                .attr("dy", ".35em");
+
+            // Append overlay rectangle as container for Circle and Tooltips
+            // that allows user to hover anywhere on graphic
+            svg.append("rect")
+                .attr("class", "overlay")
+                .attr("width", width)
+                .attr("height", height)
+                .on("mouseover", function() { focus.style("display", null); })
+                .on("mouseout", function() { focus.style("display", "none"); })
+                .on("mousemove", mousemove);
+
+            // Mousemove function that sets location and changes properties of Focus SVG
+            function mousemove() {
+                let x0 = x.invert(d3.mouse(this)[0]),
+                    i = bisectDate(data, x0, 1),
+                    d0 = data[i - 1],
+                    d1 = data[i],
+                    d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+                focus.attr("transform", "translate(" + x(d.date) + "," + y(d.rate) + ")");
+                focus.select("text").text(formatCurrency(d.rate));
+            }
+            });
+
+            // Reset Animation
+            d3.select("#reset").on("click", function() {
+            d3.select(".line").remove();
+            });
+        });
+
+        })()
+        //end script for trend chart
+        </script>
+    </div>   <!-- end div for trend-line-->
+
+</div>  <!-- end div for main container holding div for trend line -->
+
+
+<br>
+
+<!-- Begin table for dates/historical points-->
+<div class="history pl-5 pr-5"> 
+    <p>_____________________________________________________________________________________________________________________________________________________________________________________________________________________</p>
+    <h4 class="subtitle text-center text-muted">Voting in America: Historical Perspective</h4>
+    <table class="table table-dark">
+    <thead>
+        <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Event</th>
+        </tr>
+    </thead>
+        <tbody class="text-monospace">
+        <tr>
+            <th scope="row">1776</th>
+            <td>Voting is controlled by individual state legislatures. Only white men age 21 and older who own land can vote.</td>
+        </tr>
+        <tr>
+            <th scope="row">1848</th>
+            <td>Abolitionlists and pro women's suffrage groups first meet and organize in Senaca Falls.</td>
+        </tr>
+        <tr>
+            <th scope="row">1868</th>
+            <td>The 14th Amendment to the U.S. Constitution grants full citizenship rights, including voting rights, to all men born or naturalized in the United States. .</td>
+        </tr>
+        <tr>
+            <th scope="row">1870</th>
+            <td>The 15th Amendment eliminates racial barriers to voting. Many states continue practicing voter discrimination. Poll taxes, literacy tests, fraud, and intimidation still prevent many from voting. Native Americans are still denied the right to vote.</td>
+        </tr>
+        <tr>
+            <th scope="row">1872</th>
+            <td>Activists Susan B. Anthony and Soujourner Truth are arrested for trying to vote. </td>
+        </tr>
+        <tr>
+            <th scope="row">1890</th>
+            <td>Wyoming becomes the first US state to grant women the right to vote.</td>
+        </tr>
+        <tr>
+            <th scope="row">1920</th>
+            <td>The 19th Amendment grants the women the right to vote nationwide. But not all Native American and Asian women have citzenship.</td>
+        </tr>
+        <tr>
+            <th scope="row">1924</th>
+            <td>Indian Citzenship Act is passed, giving Native Americans full citzenship. However many states disenfranchise them at the polls.</td>
+        </tr>
+        <tr>
+            <th scope="row">1952</th>
+            <td>McCarren-Walter Act is passed, grants all Asian Americans the right to become citizens and vote.</td>
+        </tr>
+        <tr>
+            <th scope="row">1961</th>
+            <td>23rd Amendment gives DC residents the right to vote for presidents, but not Congressional representation.</td>
+        </tr>
+        <tr>
+            <th scope="row">1965</th>
+            <td>Voting Rights Act is passed, removing discrimanatory barriers that kept many people of color from voting.</td>
+        </tr>
+        <tr>
+            <th scope="row">1971</th>
+            <td>Voting age is lowered from 21 to 18 in light of the Vietnam War; to ensure those old enouph to fight could vote.</td>
+        </tr>
+        <tr>
+            <th scope="row">1975</th>
+            <td>The federal Voting Rights Act is renewed, permanently banning literacy tests nationwide. Section 203 is added, requiring translated voting materials in areas with large numbers of citizens with limited English skills.</td>
+        </tr>
+        <tr>
+            <th scope="row">1984</th>
+            <td>The federal Voting Accessibility for the Elderly and Handicapped Act requires polling places to be accessible to people with disabilities.</td>
+        </tr>
+        <tr>
+            <th scope="row">1993</th>
+            <td>National Voter Registration Act is passed, making it easier to register at DMV's and public assistance centers.</td>
+        </tr>
+        <tr>
+            <th scope="row">2000</th>
+            <td>A federal court ruled that citizens of US territories like Puerto Rico and Guam CANNOT vote in federal elections.</td>
+        </tr>
+        <tr>
+            <th scope="row">2009</th>
+            <td>Washington becomes the second state in the U.S. (after Oregon) to vote entirely by mail rather than in person at the polls.</td>
+        </tr>
+        <tr>
+            <th scope="row">2018</th>
+            <td>Amendment 4 is passed, restoring voting rights to over 1.4 million Floridians with past felony convictions. However, efforts to block implementation of new law is under way. Opposing forces argue that payment of court fines and fees should be paid before people with felony records can regain the right to vote. </td>
+        </tr>
+    </tbody>
+    </table>
+</div> <!-- End div for dates/historical points-->
+<br>
+
+<!-- Begin div for US Map-->
+    <div class="usmap pl-5 pr-5">
+            <h2 class="title has-text-centered">US Voter Participation Rates by State (2018 Midterm Election)</h2>
+    
+        <p> Data source: US Census Bureau.</p>
+    
+        <div id="vis"></div>
+        
+       
+        <!-- D3.js CDN sources -->
+        <script src="//d3js.org/d3.v3.min.js"></script>  <!--d3.v3.min.js-->
+        <script src="//d3js.org/queue.v1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
+        <script src="//d3js.org/topojson.v1.min.js"></script>
+        <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+            
+            <script>
+            (function() {    
+                //defining size of the svg canvas
+                let width = 900; //900
+                    height = 630; //700
+    
+                let tip = d3.tip()
+                .attr('class', 'd3-tip')
+                .offset([-5, 0])
+                .html(function(d) {
+                    let dataRow = countryById.get(d.properties.name);
+                    if (dataRow) {
+                        console.log(dataRow);
+                        return dataRow.states + ": " + dataRow.votes;
+                    } else {
+                        console.log("no dataRow", d);
+                        return d.properties.name + ": No data.";
+                    }
+                })
+    
+    
+                let svg = d3.select('#vis').append('svg')
+                    .attr('width', width)
+                    .attr('height', height);
+    
+                svg.call(tip);
+    
+                let projection = d3.geo.albersUsa()
+                    .scale(1200) // adjusts the scale
+                    .translate([width / 2, height / 2]);
+    
+                let path = d3.geo.path()
+                    .projection(projection);
+    
+                let colorScale = d3.scale.linear().range(["#f6ddcc", "#ba4a00"]).interpolate(d3.interpolateLab);
+    
+                let countryById = d3.map();
+    
+                // queuing because I have more than 1 data file to load.
+                queue()
+                    .defer(d3.json, " {% static 'capstoneapp/usstates.json' %}")
+                    .defer(d3.csv, "{% static 'capstoneapp/votes.csv' %}", typeAndSet) //assining processing variable typeAndSet
+                    .await(loaded);
+    
+                function typeAndSet(d) {
+                    d.votes = +d.votes; //the + converts the votes column into a number
+                    countryById.set(d.states, d); //retrieving the states column 
+                    return d;
+                }
+    
+                function getColor(d) {
+                    let dataRow = countryById.get(d.properties.name);
+                    if (dataRow) {
+                        console.log(dataRow);
+                        return colorScale(dataRow.votes);
+                    } else {
+                        console.log("no dataRow", d);
+                        return "#ccc";
+                    }
+                }
+    
+                function loaded(error, usa, votes) {
+    
+                    console.log(usa);
+                    console.log(votes);
+    
+                    colorScale.domain(d3.extent(votes, function(d) {return d.votes;}));
+    
+                    let states = topojson.feature(usa, usa.objects.units).features;
+    
+                    svg.selectAll('path.states')
+                        .data(states)
+                        .enter()
+                        .append('path')
+                        .attr('class', 'states')
+                        .attr('d', path)
+                        .on('mouseover', tip.show)
+                        .on('mouseout', tip.hide)
+                        .attr('fill', function(d,i) {
+                            console.log(d.properties.name);
+                            return getColor(d);
+                        })
+                        .append("title");
+    
+                    let linear = colorScale;
+    
+                    svg.append("g")
+                    .attr("class", "legendLinear")
+                    .attr("transform", "translate(20,20)");
+    
+                    let legendLinear = d3.legend.color()
+                    .shapeWidth(30)
+                    .orient('horizontal')
+                    .scale(linear);
+    
+                    svg.select(".legendLinear")
+                    .call(legendLinear);
+    
+                }
+            })()    
+            </script>
+    
+            <p class="lead">The November 2018 election resulted in a historic 11 percentage point increase compared to the 2014 midterm election.
+               The 11% increase was driven by stronger voter participation rates among all voting age and major
+               racial and ethnic groups. 53% of the voting-age population voted in 2018, making the year the highest midterm turnout in four decades.  The historic turnout reversed
+               the trajectory of the 2014 election, which had the lowest engagement rate at 42%.  </p>
+    
+            <p class="lead" >Below is a summary of demographic groups influencing the historic 11% increase in the 2018 midterm election.</p>   
+            
+            <table class="table table-sm table-hover text-center">
+            <thead>
+                <tr>
+                <th scope="col">Demographic</th>
+                <th scope="col">2014 Voter Participation</th>
+                <th scope="col">2018 Voter Participation</th>
+                <th scope="col">Variance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Total</th>
+                    <td>41.9</td>
+                    <td>53.4</td>
+                    <td>11.5</td>
+                </tr>
+                <tr>
+                    <th scope="row">18-29</th>
+                    <td>19.9</td>
+                    <td>35.6</td>
+                    <td>15.7</td>
+                </tr>
+                <tr>
+                    <th scope="row">30-44</th>
+                    <td>35.6</td>
+                    <td>48.8</td>
+                    <td>13.2</td>
+                </tr>
+                <tr>
+                <th scope="row">45-64</th>
+                    <td>49.6</td>
+                    <td>59.5</td>
+                    <td>9.9</td>
+                </tr>
+                <tr>
+                <th scope="row">65+</th>
+                    <td>59.4</td>
+                    <td>66.1</td>
+                    <td>6.7</td>
+                </tr>
+                <tr>
+                <th scope="row">Male</th>
+                    <td>40.8</td>
+                    <td>51.8</td>
+                    <td>10.9</td>
+                </tr>
+                <tr>
+                <th scope="row">Female</th>
+                    <td>43.0</td>
+                    <td>55.0</td>
+                    <td>12.0</td>
+                </tr>
+                <tr>
+                <th scope="row">White</th>
+                    <td>45.8</td>
+                    <td>57.5</td>
+                    <td>11.7</td>
+                </tr>
+                <tr>
+                <th scope="row">Black</th>
+                    <td>40.6</td>
+                    <td>51.4</td>
+                    <td>10.8</td>
+                </tr>    
+                <tr>
+                <th scope="row">Asian</th>
+                    <td>26.9</td>
+                    <td>40.2</td>
+                    <td>13.3</td>
+                </tr>
+                <tr>
+                <th scope="row">Hipanic</th>
+                    <td>27.0</td>
+                    <td>40.4</td>
+                    <td>13.4</td>
+                </tr>
+                <tr>
+                <th scope="row">Less H.S. Diploma</th>
+                    <td>22.2</td>
+                    <td>27.2</td>
+                    <td>5.0</td>
+                </tr>
+                <tr>
+                <th scope="row">H.S. Diploma/Equiv.</th>
+                    <td>33.9</td>
+                    <td>42.1</td>
+                    <td>8.2</td>
+                </tr>
+                <tr>
+                <th scope="row">Some College/Assoc.</th>
+                    <td>41.7</td>
+                    <td>54.5</td>
+                    <td>12.8</td>
+                </tr>
+                <tr>
+                <th scope="row">Bachelors Degree</th>
+                    <td>53.2</td>
+                    <td>65.7</td>
+                    <td>12.5</td>
+                </tr>
+                <tr>
+                <th scope="row">Advanced Degree</th>
+                    <td>62.0</td>
+                    <td>74.0</td>
+                    <td>12.0</td>
+                </tr>
+                <tr>
+                <th scope="row">Native-Born Citizen</th>
+                    <td>42.7</td>
+                    <td>54.2</td>
+                    <td>11.5</td>
+                </tr>
+                <tr>
+                <th scope="row">Naturalized Citizen</th>
+                    <td>34.1</td>
+                    <td>45.7</td>
+                    <td>11.7</td>
+                <tr>
+                <th scope="row">Metropolitan Area</th>
+                    <td>41.5</td>
+                    <td>53.7</td>
+                    <td>12.2</td>
+                <tr>
+                <th scope="row">Nonmetropolitan</th>
+                    <td>44.3</td>
+                    <td>52.1</td>
+                    <td>7.7</td>
+                </tr>
+                </tr>
+                </tr>
+            </tbody>
+                
+            </table>
+            
+            <ul class="list-unstyled pl-5 pr-5">
+            <li class="lead" >A Few Highlights...
+                <ul>
+                    <li>Young voters were highly energized! With a 79% increase, voter turnout among 18 to 29 year olds had the largest percentage increase for any age group. </li>
+                    <li>Among men and women, voter turnout increased by 11 and 12 percentage points respectively.</li>
+                    <li>Voter turnout increased among major racial and ethnic groups.  Increase of 11 percentage points for Non-Hispanic black voters, a 50% increase in Hispanic voter turnout and a 13 percentage point increase for non-Hispanic Asians.</li>
+                    <li>Those with higher levels of education had higher levels of voter turnout in 2018.  Those with less than a high school education had the smallest increase in voter turnout (5 percentage points). Those with a high school diploma or equivalent had the second-lowest increase (8 percentage points).</li>
+                    <li>Voting by native-born and naturalized citizens showed comparable increases of 12 percentage points.</li>
+                </ul>    
+            </li>    
+            </ul>
+    </div>  <!-- end div for usmap-->      
+<br>
+
+    <!-- Participation By Gender -->
+<div class="male_female_text pl-5 pr-5"> 
+    <h2 class="title has-text-centered text-primary">Voting Participation By Gender</h2>
+
+        <p class="lead">In the 2018 midterm election, both men and women voted at historic rates; with double digit turnout increases 
+            (11 and 12 percentage points respectively). 55% of eligible female voters cast their ballots in the 2018 midterm 
+            election compared to 51.8% of men. As seen in the past five midterm elections, women turned out to vote at slightly 
+            higher rates then men. </p>
+            
+            <!-- gender gap poll only “national” election of 2018: the national popular vote for the U.S. House-->
+        <p class="lead"> There were wide differences in voting preferences between men and women. The gender gap in 
+            voting preference is not new, but in 2018, the 23-point gap was widest it has been since 1992.
+            Male voters preferred the Republican candidate by 4 percentage points, while female voters preferred 
+            their Democratic candidate by 19 points.
+         </p>
+                  
+<!-- Starting visualization for gender trend line -->
+<div class="trend1">
+        <svg id="visualization" width="500" height="200"></svg> <!-- w=1000, h=500-->       
+</div>
+  
+  <script>
+    (function() {
+        //voter turnout % men
+    let data = [{
+        "votes": "41.4",
+        "year": "1998"
+    }, {
+        "votes": "41.4",
+        "year": "2002"
+    }, {
+        "votes": "42.4",
+        "year": "2006"
+    }, {
+        "votes": "40.9",
+        "year": "2010"
+    }, {
+        "votes": "40.8",
+        "year": "2014"
+    }, {
+        "votes": "51.8",
+        "year": "2018"
+    }];
+    
+    //voter turnout % women
+    let data2 = [{
+        "votes": "42.4",
+        "year": "1998"
+    }, {
+        "votes": "43.0",
+        "year": "2002"
+    }, {
+        "votes": "44.7",
+        "year": "2006"
+    }, {
+        "votes": "42.7",
+        "year": "2010"
+    }, {
+        "votes": "43.0",
+        "year": "2014"
+    }, {
+        "votes": "55.0",
+        "year": "2018"
+    }];
+// Defining constants for graph. Using d3.select to select the visualization element created in svg on html page. 
+  let vis = d3.select("#visualization"),
+    WIDTH = 500,
+    HEIGHT = 200,
+    MARGINS = {
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 50
+    },
+//Need to create scales for the X and Y axes. Need the maximum and minimum value of the data 
+//to create the scales on the axes. Using d3.scale.linear to create scales for the axes.  
+//d3.scale.linear uses 2 properties called range and domain to create the scale. Range defines the
+//area available to render the graph. Domain defines the max and min values to plot in the available space.
+//Range has been specified so that it doesn't get crowded around the edges. Used max and min values from dataset.  
+  xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([1998,2018]),
+  yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([40,57]),
+
+//Creating the axes using the scales defined in the above code. Using method d3.svg.axis to create axes.
+  xAxis = d3.svg.axis()
+    .scale(xScale),
+  
+  yAxis = d3.svg.axis()
+    .scale(yScale)
+    .orient("left"); //changing orientation of axis to align to the left side. this works with the transform/translate properties when appending 
+    
+
+//Next step is to append the created X axis to the svg container:
+  vis.append("svg:g")
+  .attr("class","axis") // adding the axis class so CSS can be applied
+
+  //use transform property to move the axis downwards. translate+transform moves axis based on coordinates
+  //need to move the X axis only downwards, so providing the transform coordinates for the X axis as 0 
+  //and the Y axis just above the margin. 
+    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+    .call(xAxis);
+
+//Next step is to add the y axis by appening the Y axis to the SVG container.
+  vis.append("svg:g")
+  .attr("class","axis") // adding the axis class so CSS can be applied
+
+  //Once the y axis is aligned to the left, apply D3 transform to place it correctly alongside the x axis.
+  //keeping y coordinate of translate as 0, since only need to move it horizontally.
+    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+    .call(yAxis);
+
+//CREATING THE LINE
+//To plot the sample data, need to apply the xScale and the yScale to the coordinates to transform them
+// and to draw a line across the plotting space. Using method called d3.svg.line() to draw a line.
+//Step1 specifies x and y coordinates for the line as per the xScale and yScale
+  var lineGen = d3.svg.line()
+      .x(function(d) {
+    return xScale(d.year);
+  })
+      .y(function(d) {
+    return yScale(d.votes);
+  })
+  .interpolate("basis"); //By default the line will have linear interpolation. Can specify the interpolation and add CSS to the axes to make it look better.
+
+//Step2 appends a line path to the svg and maps the sample data to the plotting space using the lineGen function.
+//Specifing attributes for the line such as stroke color, stroke-width
+  vis.append('svg:path')
+  .attr('d', lineGen(data))
+  .attr('stroke', 'blue') //voter turnout trend for males
+  .attr('stroke-width', 2)
+  .attr('fill', 'none');
+
+//Creating multi line chart 
+//The 2 datasets have the x axis values. To plot data2 alongside data, need to append another svg 
+//path to the svg element. Only difference is the data passed to scale to the lineGen function is data2.
+  vis.append('svg:path')
+  .attr('d', lineGen(data2))
+  .attr('stroke', 'pink')  //voter turnout trend for females
+  .attr('stroke-width', 2)
+  .attr('fill', 'none');
+    
+    })() 
+  </script>
+<br>
+<br>
+<br>
+  <!-- PARTICIPATION BY AGE-->
+   <div class="multiple_grids">
+        <!-- Title -->
+        <h2 class="title has-text-centered text-info">Voting Participation By Age</h2>
+
+        <p class="lead">During the 2018 mid-term election, the three younger generations (ages 18-53) casted 62 million votes.  60.1 million votes came from Baby Boomers
+            and older generations. With double digit increases, voter turnout was higher among adults of all ages.  Younger adults showed
+            the highest voter turnout increase. Turnout among adults under 25 nearly doubled to 32.4%. Turnout rates for adults 25-34 increased 14 percentage points to 
+            42.1% and 13 points among those between 35-44. Young voters (age 18-29) voted for Democrats by a 35-point margin 
+            in 2018. 67% of voters age 18-29 and 58% of voters age 30-44 favored their Democratic candidate. Voters 45 and 
+            older were divided among political parties.  50% of this population voted Republican and 49% Democrat.</p>
+            
+            
+        <p class="lead">Although older age groups continued to be more likely than younger groups to vote in the midterms, 
+            their turnout increases were more moderate.  66.1% of adults 65 and older voted in the 2018 midterm, up from 
+            59.4% in the 2014 midterm. Those ages 55 to 64 increased their turnout rate by 7.8 percentage points.
+            Baby Boomers, those ages 54 to 72 in 2018, had their highest-ever midterm election turnout (64%, the same rate as the Silent Generation) 
+            and cast more votes than they ever have in a midterm (44.1 million). </p>
+                
+                
+        <p>The difference in turnout by gender varied by age. Woman had a stronger turnout rate across all age groups. Among younger voters (18 to 44), the gender gap was wider than the gap for older voters (45 and older).
+             The gender gap is a follows in percentage points:</p>
+        <p>
+            18-24 = 5.8, 25-34 = 4.2, 35-44 = 5.4, 45-54 = 3, 55-64 = 2.6, 65+ = 3.2
+        </p>
+
+        <!-- Creating containers for svg-->
+        <div class="container">
+                <div class="row">
+                  <div class="col">
+                        <p> Ages 18-24 </p>
+                    <svg id="chart1" width="500" height="200"></svg> <!-- w=1000, h=500-->
+                  </div>          
+                  <div class="col">
+                        <p> Ages 25-44</p>
+                    <svg id="chart2" width="500" height="200"></svg> <!-- w=1000, h=500-->
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                        <p> Ages 45-64 </p>
+                    <svg id="chart3" width="500" height="200"></svg> <!-- w=1000, h=500-->
+                  </div>
+                  <div class="col">
+                        <p> Ages 65+ </p>
+                    <svg id="chart4" width="500" height="200"></svg> <!-- w=1000, h=500-->
+                  </div>
+                </div>
+              </div>
+
+
+        <script> //Chart1 (change name of chart in svg container and vis variable)
+                (function() {   //voter turnout trend for 18-24    
+                let data = [ {
+                    "votes": "19.3",
+                    "year": "2002"
+                }, {
+                    "votes": "22.1",
+                    "year": "2006"
+                }, {
+                    "votes": "21.3",
+                    "year": "2010"
+                }, {
+                    "votes": "17.1",
+                    "year": "2014"
+                }, {
+                    "votes": "32.4",
+                    "year": "2018"
+                }];
+
+                let vis = d3.select("#chart1"), //voter turnout trend for 18-24
+                WIDTH = 500,
+                HEIGHT = 200,
+                MARGINS = {
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 50
+                },               
+                xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([2002,2018]),
+                yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([17,33]),
+              
+              //Creating the axes using the scales defined in the above code. Using method d3.svg.axis to create axes.
+                xAxis = d3.svg.axis()
+                  .scale(xScale),
+                
+                yAxis = d3.svg.axis()
+                  .scale(yScale)
+                  .orient("left"); //changing orientation of axis to align to the left side. this works with the transform/translate properties when appending 
+                  
+              
+              //Next step is to append the created X axis to the svg container:
+                vis.append("svg:g")
+                .attr("class","axis") // adding the axis class so CSS can be applied
+                .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+                .call(xAxis);
+              
+              //Next step is to add the y axis by appening the Y axis to the SVG container.
+                vis.append("svg:g")
+                .attr("class","axis") // adding the axis class so CSS can be applied
+                .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+                .call(yAxis);
+              
+              //CREATING THE LINE
+                let lineGen = d3.svg.line()
+                    .x(function(d) {
+                  return xScale(d.year);
+                })
+                    .y(function(d) {
+                  return yScale(d.votes);
+                })
+                .interpolate("basis"); //By default the line will have linear interpolation. Can specify the interpolation and add CSS to the axes to make it look better.
+              
+              //Step2 appends a line path to the svg and maps the sample data to the plotting space using the lineGen function.
+              //Specifing attributes for the line such as stroke color, stroke-width
+                vis.append('svg:path')
+                .attr('d', lineGen(data))
+                .attr('stroke', 'slateblue')   //voter turnout trend for 18-24
+                .attr('stroke-width', 2)
+                .attr('fill', 'none');
+
+            })() 
+        </script>
+      
+        <script> //Chart2 (change name of chart in svg container and vis variable)
+                (function() {       //voter turnout trend for 25-44
+                let data = [ {
+                    "votes": "38.9",
+                    "year": "2002"
+                }, {
+                    "votes": "39.9",
+                    "year": "2006"
+                }, {
+                    "votes": "37.1",
+                    "year": "2010"
+                }, {
+                    "votes": "32.5",
+                    "year": "2014"
+                }, {
+                    "votes": "46.3",
+                    "year": "2018"
+                }];
+
+                let vis = d3.select("#chart2"),  //voter turnout trend for 25-44
+                WIDTH = 500,
+                HEIGHT = 200,
+                MARGINS = {
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 50
+                },               
+                xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([2002,2018]),
+                yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([32,47]),
+              
+              //Creating the axes using the scales defined in the above code. Using method d3.svg.axis to create axes.
+                xAxis = d3.svg.axis()
+                  .scale(xScale),
+                
+                yAxis = d3.svg.axis()
+                  .scale(yScale)
+                  .orient("left"); //changing orientation of axis to align to the left side. this works with the transform/translate properties when appending 
+                  
+              
+              //Next step is to append the created X axis to the svg container:
+                vis.append("svg:g")
+                .attr("class","axis") // adding the axis class so CSS can be applied
+                .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+                .call(xAxis);
+              
+              //Next step is to add the y axis by appening the Y axis to the SVG container.
+                vis.append("svg:g")
+                .attr("class","axis") // adding the axis class so CSS can be applied
+              
+                //Once the y axis is aligned to the left, apply D3 transform to place it correctly alongside the x axis.
+                //keeping y coordinate of translate as 0, since only need to move it horizontally.
+                  .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+                  .call(yAxis);
+              
+              //CREATING THE LINE
+                let lineGen = d3.svg.line()
+                    .x(function(d) {
+                  return xScale(d.year);
+                })
+                    .y(function(d) {
+                  return yScale(d.votes);
+                })
+                .interpolate("basis"); //By default the line will have linear interpolation. Can specify the interpolation and add CSS to the axes to make it look better.
+              
+              //Step2 appends a line path to the svg and maps the sample data to the plotting space using the lineGen function.
+              //Specifing attributes for the line such as stroke color, stroke-width
+                vis.append('svg:path')
+                .attr('d', lineGen(data))
+                .attr('stroke', 'green')  //voter turnout trend for 25-44
+                .attr('stroke-width', 2)
+                .attr('fill', 'none');
+
+            })() 
+        </script>
+       
+        <script> //Chart3 (change name of chart in svg container and vis variable)
+                (function() {       //voter turnout trend for 45-64
+                let data = [ {
+                    "votes": "56.1",
+                    "year": "2002"
+                }, {
+                    "votes": "57.6",
+                    "year": "2006"
+                }, {
+                    "votes": "54.4",
+                    "year": "2010"
+                }, {
+                    "votes": "49.6",
+                    "year": "2014"
+                }, {
+                    "votes": "59.5",
+                    "year": "2018"
+                }];
+
+                let vis = d3.select("#chart3"), //voter turnout trend for 45-64
+                WIDTH = 500,
+                HEIGHT = 200,
+                MARGINS = {
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 50
+                },               
+                xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([2002,2018]),
+                yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([49.6,60]),
+              
+              //Creating the axes using the scales defined in the above code. Using method d3.svg.axis to create axes.
+                xAxis = d3.svg.axis()
+                  .scale(xScale),
+                
+                yAxis = d3.svg.axis()
+                  .scale(yScale)
+                  .orient("left"); //changing orientation of axis to align to the left side. this works with the transform/translate properties when appending 
+                  
+              
+              //Next step is to append the created X axis to the svg container:
+                vis.append("svg:g")
+                .attr("class","axis") // adding the axis class so CSS can be applied
+                .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+                .call(xAxis);
+              
+              //Next step is to add the y axis by appening the Y axis to the SVG container.
+                vis.append("svg:g")
+                .attr("class","axis") // adding the axis class so CSS can be applied
+              
+                //Once the y axis is aligned to the left, apply D3 transform to place it correctly alongside the x axis.
+                //keeping y coordinate of translate as 0, since only need to move it horizontally.
+                  .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+                  .call(yAxis);
+              
+              //CREATING THE LINE
+                let lineGen = d3.svg.line()
+                    .x(function(d) {
+                  return xScale(d.year);
+                })
+                    .y(function(d) {
+                  return yScale(d.votes);
+                })
+                .interpolate("basis"); //By default the line will have linear interpolation. Can specify the interpolation and add CSS to the axes to make it look better.
+              
+              //Step2 appends a line path to the svg and maps the sample data to the plotting space using the lineGen function.
+              //Specifing attributes for the line such as stroke color, stroke-width
+                vis.append('svg:path')
+                .attr('d', lineGen(data))
+                .attr('stroke', 'orange')  //voter turnout trend for 45-64
+                .attr('stroke-width', 2)
+                .attr('fill', 'none');
+
+            })() 
+        </script>
+          
+        <script> //Chart4 (change name of chart in svg container and vis variable)
+                (function() {       //voter turnout trend 65+
+                let data = [ {
+                    "votes": "62.7",
+                    "year": "2002"
+                }, {
+                    "votes": "62.5",
+                    "year": "2006"
+                }, {
+                    "votes": "60.8",
+                    "year": "2010"
+                }, {
+                    "votes": "59.4",
+                    "year": "2014"
+                }, {
+                    "votes": "66.1",
+                    "year": "2018"
+                }];
+
+                let vis = d3.select("#chart4"), //voter turnout trend 65+
+                WIDTH = 500,
+                HEIGHT = 200,
+                MARGINS = {
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 50
+                },               
+                xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([2002,2018]),
+                yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([58,65]),
+              
+              //Creating the axes using the scales defined in the above code. Using method d3.svg.axis to create axes.
+                xAxis = d3.svg.axis()
+                  .scale(xScale),
+                
+                yAxis = d3.svg.axis()
+                  .scale(yScale)
+                  .orient("left"); //changing orientation of axis to align to the left side. this works with the transform/translate properties when appending 
+                  
+              
+              //Next step is to append the created X axis to the svg container:
+                vis.append("svg:g")
+                .attr("class","axis") // adding the axis class so CSS can be applied
+                .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+                .call(xAxis);
+              
+              //Next step is to add the y axis by appening the Y axis to the SVG container.
+                vis.append("svg:g")
+                .attr("class","axis") // adding the axis class so CSS can be applied
+              
+                //Once the y axis is aligned to the left, apply D3 transform to place it correctly alongside the x axis.
+                //keeping y coordinate of translate as 0, since only need to move it horizontally.
+                  .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+                  .call(yAxis);
+              
+              //CREATING THE LINE
+                let lineGen = d3.svg.line()
+                    .x(function(d) {
+                  return xScale(d.year);
+                })
+                    .y(function(d) {
+                  return yScale(d.votes);
+                })
+                .interpolate("basis"); //By default the line will have linear interpolation. Can specify the interpolation and add CSS to the axes to make it look better.
+              
+              //Step2 appends a line path to the svg and maps the sample data to the plotting space using the lineGen function.
+              //Specifing attributes for the line such as stroke color, stroke-width
+                vis.append('svg:path')
+                .attr('d', lineGen(data))
+                .attr('stroke', 'brown')  //voter turnout trend 65+
+                .attr('stroke-width', 2)  
+                .attr('fill', 'none');
+
+            })() 
+        </script>
+
+       
+   <br>
+   <br>
+   <br>
+     <!-- PARTICIPATION BY Race-->
+      <div class="multiple_grids">
+           <!-- Title -->
+           <h2 class="title has-text-centered text-danger">Voting Participation By Race</h2>
+   
+           <p class="lead">Considering the variable of race provides additional insights; especially around race and educational lines.
+            More white woman voted for Democrats in 2018 than in 2016. In the 2018 mid-term election, their vote were split evenly between
+            Democrats and Republicans (49% to 49%).  This shift is notable because in the 2014 mid-term election, white woman votes skewed  
+            towards Republicans by 12 points. In the 2018 mid-term, a large number of nonwhite women voted for Democrats. In particular, Hispanic women
+            shifted to the left in greater numbers in 2018.
+        
+            <p class="lead"> Education level is a strong predictor in determining a voter's party preferences. White woman voters were divided by their 
+            educational backgrounds (a significant 34 point gap). White woman without a college degree voted for Republicans
+            by 14 points (56% to 42%).  White women with a college degree voted for Democrats by 20 points (59% to 39%).  </p>
+
+            <p class="lead">In line with the 2016 presidential election, white men favored Republicans and voted Republican 60% to 39% Democrat.  African Americans voted overwhelmingly 
+            90% Democrat. Voting by gender within the African American community were comparable. 88% of African American men voted for their Democratic candidate while African American women voted at 92%.   </p>
+        
+   <br>
+     <!-- Voting interests common across demographics, and specific to demographics -->
+     <h2 class="title has-text-centered text-success">Shared Voting Interests</h2>
+     <p class="lead">Issues around gender and racial diversity, abortion and sexual harassment continue to be heated and divisive political issues. 
+            Other concerns also drove voters to the polls during the mid-term election. Some views are shared across party lines. Others not so much.  
+      <div class="multiple_grids">        
+
+        <!-- Title -->           
+           <ul class="list-group text-monospace">
+                <li class="list-group-item active">Additional Voting Issues/Concerns</li>
+                <li class="list-group-item">83% of voters said “recent extremist violence” was an important factor in their vote.</li>
+                <li class="list-group-item">Almost seven in 10 voters believe the economy was in good shape.</li>
+                <li class="list-group-item">72% of voters who supported Democrat candidates believe sexual harassment is a "very serious problem".</li>
+                <li class="list-group-item">Among voters who supported Republican candidates, 50% believe sexual harassment is a "somewhat serious issue".</li>
+                <li class="list-group-item">11% of voters said sexual harassment "is not too serious a problem".</li>
+                <li class="list-group-item">Roughly 6 in 10 voters said they supported stricter gun control measures.</li>
+                <li class="list-group-item">41% of voters said health care was the top issue facing the country.</li>
+                <li class="list-group-item">23% of voters said immigration was the top issue facing the country.</li>
+                <li class="list-group-item">22% of voters said the economy was the top issue facing the country.</li>
+                <li class="list-group-item">10% of voters said gun policy was the top issue facing the country.</li>
+                <li class="list-group-item">10% of voters said gun policy was the top issue facing the country.</li>
+                <li class="list-group-item">16% of voters voted for the first time in a midterm election. Of that group, 62 percent voted for Democrats and 36 percent voted for Republicans.</li>           
+                <li class="list-group-item">38% of voters said they cast their ballot to oppose Trump, while 26 percent voted to support him. Thirty-three percent said Trump was not a factor in their vote.</li>
+                 
+                    
+            </ul>
+   
+           
+
+
+            
+
+
+
+    <br>
+    <br>
+        
+
+
+
+</div>
+
+
+
+
+
+
+<!--- Bootstrap Files -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!--- Fontawesome Files -->
+<script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+
+
+</body>
+</html>

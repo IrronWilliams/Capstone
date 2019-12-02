@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap'); /*imports the lato font*/
+
+body{
+    overflow-x: hidden; /*content stays in browser window and does not overflow onto other sections of page*/
+    font-family: 'Lato', sans-serif;
+    color: #505962; /*hexvalue for greyish view color*/
+}
+
+
+/*Navigation */
+.navbar{
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .9rem; /*1 rem =16 pixels*/
+    letter-spacing: .1rem;
+   /** background: rgba(0,0,0,0)  !important; **/ /*40% transparecny using important to overide color of navbar*/
+}
+
+.navbar-brand img{ 
+    height: 2rem; /*2rem = 32 pixels*/
+}
+
+
+.navbar-nav li{ /*space out nav links*/
+    padding-right: .7rem;
+}
+
+
+.navbar-dark .navbar-nav .nav-link{
+    color:white !important;
+    padding-top: .8rem;
+}
+
+.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .nav-link:hover{
+    color: #1ebba3;
+}
+
+
+/*Section 1 - Landing Page*/
+
+.home-inner{
+    background-image: url("ballotbox.jpg %}");
+}
+
+.fixed-background{background-image: url("")};
+.caption{
+    width:100%; 
+    max-width: 100%; /* when website sizes down content wont go off screen, stays contained inside window*/
+    position: absolute; /* removes caption from bottom/below the fixed image and places caption on top of the background image*/
+    top: 48%; /* places caption 48% from top of image */
+    z-index: 1; /*ensure caption will always display on top of background image */
+    color: white;
+    text-orientation: uppercase;}
+
+.caption h1{
+    font-size: 3.8rem; /* 60 pixels*/ 
+    font-weight: 700;
+    letter-spacing: .3rem;
+    text-shadow: .1rem .1rem .8rem black;
+    padding-bottom: 1rem;
+    color: white;
+}
+
+.caption h3{
+    font-size: 2rem;
+    text-shadow: .1re 1rem .5rem black;
+    color: black;
+    padding-bottom: 1.6rem;
+}
+
+.btn-lg{
+    border-width: medium;
+    border-radius: 0; /*removes default rounded barrier from button*/ 
+    padding: .6rem 1.3rem;
+    font-size: 1.1rem;
+}
+
+/* 2nd Section - Course Section*/
+.narrow{
+    padding-top: 2rem ; /* padding from top*/
+
+}
+
+
+/* 3rd Section - Features Section*/
+.jumbotron{
+    margin-bottom: 0;
+    padding: 2rem 0 3.5rem;
+}
+
+
+/*============ BOOTSTRAP BREAK POINTS:
+
+Extra small (xs) devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap
+
+Small (sm) devices (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+Medium (md) devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+Large (lg) devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+Extra (xl) large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+
+=============*/
