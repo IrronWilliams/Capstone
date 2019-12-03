@@ -14,5 +14,6 @@ path('chartsmale/', views.chartsmale, name='chartsmale'),
 path('totalvotes/', views.totalvotes, name='totalvotes'),
 path('trendline/', views.trendline, name='trendline'),
 path('about/', views.about, name='about'),
+path('base/', views.base, name='base'),
 
 ]

@@ -1,3 +1,8 @@
+{%  extends 'capstoneapp/base.html'   %}
+
+{%  block content   %}
+
+
 <!DOCTYPE html>
 
 {% load static %} <!-- need for image files-->
@@ -121,6 +126,7 @@
 </body>
 </html>
 
+{%  endblock   %}
  <!--  
         To print/display a variable from model in a template, use double curly brackets wth variables name inside 
         {% for row in data %}  created a variable called data on in census view, which brings in all rows of data. command loops over each row of model. the word "data" (for row in data) needs to match the variable name on the view 

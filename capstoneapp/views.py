@@ -75,7 +75,8 @@ def trendline(request):
     #return HttpResponse('HISTORICAL ')
     return render(request, 'capstoneapp/trendline.html')
 
-#localhost:8000/about
+
+#localhost:8000/base
 def about(request):
     #return HttpResponse('ABOUT PAGE ')
     return render(request, 'capstoneapp/about.html')

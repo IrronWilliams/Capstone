@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CAPTSTONE TEMPLATE</title>
+    <!-- Bootstrap File-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    
+    <style type="text/css">
+        .home-inner {
+            background-image: url("{% static 'images\ballotbox.jpg' %}");
+        }
+
+
+    </style>
+     
+     
+   
+
+
+</head>
+<!--  Bootstrap Scroll Spy - When scorlling thru websites, sections will highlight in Navigation Bar -->
+<!--  data target = #navbarResponsive is the link to id that will give the navigation -->
+<!--  Next step is to identify id for each section that user will scroll thru, ie Home, About, Sign Up-->
+<body data-spy="scroll" data-target="#navbarResponsive">
+
+<!--Start Home Section. ID for Bootstrap Scroll Spy. 1st Id for the home navigation link-->
+<div id="home">
+
+<!-- Start Navigation -->
+<!--Navigation navbar is html tag for navigation bar, navbar-expand-md is for responsiveness, navbar-dark is color for naviation links, 
+    bg-dark will give navigation dark background, fixed-top will force navigation bar to stay fixed at top while scorlling the site.
+    This will return a solid line across the screen-->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#" </a> <!--display logo inside navbar-->
+    
+    <!-- Creates collapsable navbar toggler button and applies scroll spy via data-target navbarResponsive -->
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+        <span class="navbar-toggler-icon"></span> <!-- creates hamburger button inside the collapsable navbar toggler button-->
+    </button>
+
+    <!-- Creating Collapsable Navigation Menu on left hand side.  -->
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+
+       <!-- Creating unordered list items and navigation links--> 
+        <ul class="navbar-nav ml-auto">  <!-- ml auto moves to left-->
+            <li class="nav-item">
+                <a class="nav-link" href="#home">Home</a> <!--linking to the home id-->
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="#about">About</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="#stats">Register</a>
+            </li>
+             
+        </ul>
+    </div>    
+</nav>
+<!-- End Navigation-->
+
+<!--Start Fixed Image Landing Page. Refers to fixed css file. Used for mobile responsiveness. Also needed to put caption section on landing page  -->
+<div class="landing">
+    <div class="home-wrap">
+        <div class="home-inner">
+        </div>
+    </div>
+</div> 
+<!-- Creates comments that will sit on top of the landing page. -->
+<div class="caption text-center">
+    <h1>Welcome To Voting 2020</h1>
+    <h3> Register To Vote! </h3>
+    <a class="btn btn-outline-light btn-lg" href="#about">Get Started</a>
+</div>
+<!-- End Landing Page-->
+
+</div>
+<!-- End Home Section -->
+
+<!--Start about Section  ID for Bootstrap Scroll Spy. 2nd Id for the home navigation link-->
+<div id="about" class="offset"> <!--offset accounts for spacing between sections-->
+
+<!--Text that will appear in section after the Home Page -->
+    <div class="col-12 narrow text-center"> <!-- col-12 add space between section, narrow pads on sides-->
+        <h1> Become an engaged citizien and vote in the 2020 election</h1>
+        <p class="lead"> Contact your local senator </p>
+    </div>
+
+</div>
+<!-- End about Section -->
+
+<!--Start stats Section ID for Bootstrap Scroll Spy. 3rd Id for the home navigation link-->
+<div id="stats" class="offset">
+
+<!-- Start Jumbotron-->
+<div class="jumbotron">
+<div class="narrow text-center"> <!-- narrow brings columns to 75% of the page-->
+
+<!-- Within jumbotron narrow, creating a column length of 12 and within the column putting a heading with stats text -->
+    <div class="col-12">
+        <h3 class="heading">Understanding The Voting Process</h3>
+        <div class="heading-underline"></div>
+    </div>
+
+        <!-- Begin Row. Will have 3 sections each 4 columns -->
+        <div class="row text-center">
+
+        <div class="col-12">
+                <h3 class="heading">.</h3>
+                <div class="heading-underline"></div>
+        </div>        
+
+            <div class="col-md-4"> <!-- creating 3 columns-->
+                <div class="feature">
+                    <i class="fas fa-person-booth fa-4x" data-fa-transform="shrink-3 up-5"></i>> <!--icon for circle, 4x original size i stands for icon-->
+                    <h3>Common Voting And Election Terms </h3>
+                    <p>Terms </p>
+                </div>
+            </div>
+
+            <div class="col-md-4"> <!-- creating 3 columns-->
+                <div class="feature">
+                    <i class="fas fa-vote-yea fa-4x" data-fa-transform="shrink-4.5 up-4.5"></i>> <!--icon for circle, 4x original size i stands for icon-->
+                    <h3>How To Register To Vote</h3>
+                    <p>Register</p>
+                </div>
+            </div>
+
+            <div class="col-md-4"> <!-- creating 3 columns-->
+                <div class="feature">
+                    <i class="fab fa-wpforms fa-4x" data-fa-transform="shrink-4 up-5"></i>> <!--icon for circle, 4x original size i stands for icon-->
+                    <h3>Presidental Election Process</h3>
+                    <p>Process</p> 
+                </div>
+            </div>
+    
+        </div> <!-- End Row-->
+
+</div> <!-- End Narrow-->
+</div> <!-- End Jumbotron-->
+
+<!-- End stats Section -->
+
+
+<!--Start Contact Section ID for Bootstrap Scroll Spy. 6th Id for the home navigation link-->
+<div id="contact" class="offset">
+
+<footer>
+<div class="row justify-content-center">
+    <div class="col-md-5 text-center">
+    <p>Connect via social media</p>
+    <strong>Contact Info</strong>
+    <p>(555) 555.5555<br>email@email.com</p>
+    <a href="" target="_blank"><i class="fab fa-facebook-square"></i></a>
+    <a href="" target="_blank"><i class="fab fa-twitter-square"></i></a>
+    <a href="" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>    
+</div>
+</footer>
+</div>
+<!-- End Contact Section -->
+
+<!--- Bootstrap Files -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!--- Fontawesome Files -->
+<script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+<!--- End of Script Source Files -->
+{% block content%}
+{% endblock%}
+</body>

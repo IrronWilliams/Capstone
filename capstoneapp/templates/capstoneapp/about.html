@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 
 {% load static %} <!-- wrap other static statement around csv file-->
@@ -61,28 +63,13 @@
 
 
 <body>
-<div class="container">
+<div class="container">  <!-- Begin div to put body in container for bootstrap-->
 
-<!--Start Home Section. ID for Bootstrap Scroll Spy. 1st Id for the home navigation link-->
-<div id="home"> </div>
 
-<!-- Start Navigation -->
-    <ul class="nav nav-pills justify-content-end">
-        <li class="nav-item">
-            <a class="nav-link active" href="#">Active</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-    </ul>
     <br>
     <br>
+
+
         <p class="lead">Balance The Ballot is a informational voting website. The site is designed to be an informational
            resource for voting.  Our goal is to inform, inspire and increase voter participation.  </p>
 
@@ -605,25 +592,25 @@
 <br>
 
     <!-- Participation By Gender -->
-<div class="male_female_text pl-5 pr-5"> 
-    <h2 class="title has-text-centered text-primary">Voting Participation By Gender</h2>
+    <div class="male_female_text pl-5 pr-5"> 
+        <h2 class="title has-text-centered text-primary">Voting Participation By Gender</h2>
 
-        <p class="lead">In the 2018 midterm election, both men and women voted at historic rates; with double digit turnout increases 
-            (11 and 12 percentage points respectively). 55% of eligible female voters cast their ballots in the 2018 midterm 
-            election compared to 51.8% of men. As seen in the past five midterm elections, women turned out to vote at slightly 
-            higher rates then men. </p>
-            
-            <!-- gender gap poll only “national” election of 2018: the national popular vote for the U.S. House-->
-        <p class="lead"> There were wide differences in voting preferences between men and women. The gender gap in 
-            voting preference is not new, but in 2018, the 23-point gap was widest it has been since 1992.
-            Male voters preferred the Republican candidate by 4 percentage points, while female voters preferred 
-            their Democratic candidate by 19 points.
-         </p>
-                  
+            <p class="lead">In the 2018 midterm election, both men and women voted at historic rates; with double digit turnout increases 
+                (11 and 12 percentage points respectively). 55% of eligible female voters cast their ballots in the 2018 midterm 
+                election compared to 51.8% of men. As seen in the past five midterm elections, women turned out to vote at slightly 
+                higher rates then men. </p>
+                
+                <!-- gender gap poll only “national” election of 2018: the national popular vote for the U.S. House-->
+            <p class="lead"> There were wide differences in voting preferences between men and women. The gender gap in 
+                voting preference is not new, but in 2018, the 23-point gap was widest it has been since 1992.
+                Male voters preferred the Republican candidate by 4 percentage points, while female voters preferred 
+                their Democratic candidate by 19 points.
+            </p>
+    </div>                  
 <!-- Starting visualization for gender trend line -->
-<div class="trend1">
+<div class="trend1 pl-5 pr-5">
         <svg id="visualization" width="500" height="200"></svg> <!-- w=1000, h=500-->       
-</div>
+
   
   <script>
     (function() {
@@ -746,11 +733,12 @@
     
     })() 
   </script>
+</div>
 <br>
 <br>
 <br>
   <!-- PARTICIPATION BY AGE-->
-   <div class="multiple_grids">
+   <div class="multiple_grids pl-5 pr-5">
         <!-- Title -->
         <h2 class="title has-text-centered text-info">Voting Participation By Age</h2>
 
@@ -797,7 +785,7 @@
                     <svg id="chart4" width="500" height="200"></svg> <!-- w=1000, h=500-->
                   </div>
                 </div>
-              </div>
+        </div>
 
 
         <script> //Chart1 (change name of chart in svg container and vis variable)
@@ -1100,13 +1088,12 @@
 
             })() 
         </script>
-
+    </div>
        
    <br>
-   <br>
-   <br>
+    <br>
      <!-- PARTICIPATION BY Race-->
-      <div class="multiple_grids">
+    <div class="multiple_grids pl-5 pr-5">
            <!-- Title -->
            <h2 class="title has-text-centered text-danger">Voting Participation By Race</h2>
    
@@ -1122,9 +1109,12 @@
 
             <p class="lead">In line with the 2016 presidential election, white men favored Republicans and voted Republican 60% to 39% Democrat.  African Americans voted overwhelmingly 
             90% Democrat. Voting by gender within the African American community were comparable. 88% of African American men voted for their Democratic candidate while African American women voted at 92%.   </p>
-        
+    </div>    
    <br>
-     <!-- Voting interests common across demographics, and specific to demographics -->
+    
+   <!-- Voting interests common across demographics, and specific to demographics -->
+    <div class = "common_interests pl-5 pr-5"> 
+     
      <h2 class="title has-text-centered text-success">Shared Voting Interests</h2>
      <p class="lead">Issues around gender and racial diversity, abortion and sexual harassment continue to be heated and divisive political issues. 
             Other concerns also drove voters to the polls during the mid-term election. Some views are shared across party lines. Others not so much.  
@@ -1145,12 +1135,10 @@
                 <li class="list-group-item">10% of voters said gun policy was the top issue facing the country.</li>
                 <li class="list-group-item">10% of voters said gun policy was the top issue facing the country.</li>
                 <li class="list-group-item">16% of voters voted for the first time in a midterm election. Of that group, 62 percent voted for Democrats and 36 percent voted for Republicans.</li>           
-                <li class="list-group-item">38% of voters said they cast their ballot to oppose Trump, while 26 percent voted to support him. Thirty-three percent said Trump was not a factor in their vote.</li>
-                 
-                    
+                <li class="list-group-item">38% of voters said they cast their ballot to oppose Trump, while 26 percent voted to support him. Thirty-three percent said Trump was not a factor in their vote.</li>                                     
             </ul>
-   
-           
+        </div>      
+    </div>     
 
 
             
@@ -1181,3 +1169,4 @@
 
 </body>
 </html>
+
