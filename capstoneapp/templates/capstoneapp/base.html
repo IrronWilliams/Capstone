@@ -1,8 +1,4 @@
 
-
-
-
-
 <!DOCTYPE html>
 {% load static %}
 
@@ -23,13 +19,13 @@
 <!-- Start Navigation -->
     <ul class="nav nav-pills justify-content-end">
         <li class="nav-item">
-            <a class="nav-link active" href="home">Home</a>
+            <a class="nav-link active" href={% url 'capstoneapp:about' %}>Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'capstoneapp:profiles' %}">Senator Profiles</a> <!-- url acts as a reverse lookup -->
+            <a class="nav-link" href="{% url 'capstoneapp:profiles' %}">Senator Profiles</a> <!-- url acts as a reverse lookup. name of the app, followed by name of the view -->
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'capstoneapp:census' %}">Data</a>
+            <a class="nav-link" href="{% url 'capstoneapp:census' %}">Census</a> <!-- url appname:viewname-->
         </li>
         <li class="nav-item">
                 <a class="nav-link" href="vote">Register To Vote</a>
@@ -44,10 +40,10 @@
 <div id="about" > </div>
 
 <!--Start about Section  ID for Bootstrap Scroll Spy. 2nd Id for the home navigation link-->
-<div id="profile" > </div>
+<div id="profile"> </div>
 
 <!--Start about Section  ID for Bootstrap Scroll Spy. 2nd Id for the home navigation link-->
-<div id="data" > </div>
+<div id="data"> </div>
 
 <!--Start about Section  ID for Bootstrap Scroll Spy. 2nd Id for the home navigation link-->
 <div id="vote" > </div>
