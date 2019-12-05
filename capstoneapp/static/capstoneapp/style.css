@@ -28,5 +28,13 @@ a{
     border-radius: 2px;
     }
 
+    .navbar {
+        position:fixed;
+        top:0; 
+        right:0;
+        left:0;
+        background-color: white;
+    }
+
 
 

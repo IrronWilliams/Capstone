@@ -14,24 +14,22 @@
        
 </head>
 
-<div id="home"> </div> 
+<body >
+
 
 <!-- Start Navigation -->
-    <ul class="nav nav-pills justify-content-end">
+    <ul class="navbar nav nav-pills justify-content-end"> <!-- to keep navbar "stuck", navbar referenced in css file -->
         <li class="nav-item">
             <a class="nav-link active" href={% url 'capstoneapp:about' %}>Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'capstoneapp:profiles' %}">Senator Profiles</a> <!-- url acts as a reverse lookup. name of the app, followed by name of the view -->
+            <a class="nav-link" href="{% url 'capstoneapp:profiles' %}">Contact Your Senator</a> <!-- url acts as a reverse lookup. name of the app, followed by name of the view -->
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'capstoneapp:census' %}">Census</a> <!-- url appname:viewname-->
+            <a class="nav-link" href="{% url 'capstoneapp:census' %}">Census Data</a> <!-- url appname:viewname-->
         </li>
         <li class="nav-item">
-                <a class="nav-link" href="vote">Register To Vote</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Register To Vote</a>
         </li>
     </ul>
 <!-- End Navigation-->

@@ -13,7 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- meta syntax needed for animated trend chart. -->
-    <!-- To get x axis (dates) to appear... Shift + refresh browser -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
     
     <!-- meta syntax needed for US Map-->
@@ -27,43 +26,18 @@
 <!-- Bootstrap File-->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+
+<!-- CSS file for Animated Trend Chart-->
+<link rel="stylesheet" type="text/css" href="{% static 'capstoneapp/styletrend.css' %}">  
+
 <!-- CSS file for US Map-->
 <link rel="stylesheet" type="text/css" href="{% static 'capstoneapp/style.css' %}">  
 
-<!-- Styling is for Animated Trend Chart-->
-<style>
-  
-    .axis path,
-    .axis line {
-        fill: none;
-        stroke: #000;
-        shape-rendering: crispEdges;
-    }
-    
-    .x.axis path {
-        display: none;
-    }
-    
-    .line {
-        fill: none;
-        stroke: steelblue;
-        stroke-width: 1.5px;
-    }
-    
-    .overlay {
-        fill: none;
-        pointer-events: all;
-    }
-    
-    .focus circle {
-        fill: none;
-        stroke: steelblue;
-    }
-   
-    </style>
+<!-- CSS file for Bar Chart-->
+<link rel="stylesheet" type="text/css" href="{% static 'capstoneapp/stylebar.css' %}">
 
-</head>
-
+<br>
+<br>
 
 <body>
 <div class="container">  <!-- Begin div to put body in container for bootstrap-->
@@ -71,14 +45,20 @@
 
     <br>
     <br>
+    <div class="opening_text text-left">
 
-
-        <p class="lead">Balance The Ballot is a informational voting website. The site is designed to be an informational
-           resource for voting.  Our goal is to inform, inspire and increase voter participation.  </p>
-
-        <p>The US Democracy is a system renowed but has it complications. Below is a brief history of voting in US</p>
-    <br>
-    <br>
+        <p class="lead"> Voter turnout during the November 2018 midterm election hit a historic high. More than half of eligible 
+            US voters cast a ballot. The midterm turnout was incredibly impressive, especially considering only 42% of the eligible population voted in 2014.  
+            The significant voter particpation and egagement was consistent across all states, political parties and demographic populations. 
+            </p>
+     
+        <p class="lead">Our informational website provides interesting tid bits and insights about the 2018 midterm election and voting in America.
+            Our goal is to inform, inspire and increase voter participation. We are hopeful you find this information useful as you engage in future elections and cast 
+            ballots for future congressional representatives.  </p>
+        
+        <p>_____________________________________________________________________________________________________________________________________________________________________</p>
+    </div>
+    
     <br>
     <!-- Beg div for tend-line -->
     <div class="trend-line">  
@@ -314,7 +294,7 @@
         </tr>
         <tr>
             <th scope="row">2018</th>
-            <td>Amendment 4 is passed, restoring voting rights to over 1.4 million Floridians with past felony convictions. However, efforts to block implementation of new law is under way. Opposing forces argue that payment of court fines and fees should be paid before people with felony records can regain the right to vote. </td>
+            <td>Amendment 4 is passed, restoring voting rights to over 1.4 million Floridians with past felony convictions. However, efforts to block implementation of new law are under way. Opposing forces argue payment of court fines and fees should be paid before people with felony convictions can regain the right to vote. </td>
         </tr>
     </tbody>
     </table>
@@ -323,7 +303,7 @@
 
 <!-- Begin div for US Map-->
     <div class="usmap pl-5 pr-5">
-            <h2 class="title has-text-centered">US Voter Participation Rates by State (2018 Midterm Election)</h2>
+            <h2 class="title has-text-centered">US Voter Participation Rates by State: 2018 Midterm Election</h2>
     
         <p> Data source: US Census Bureau.</p>
     
@@ -438,13 +418,17 @@
                 }
             })()    
             </script>
+
+            <p class="lead"><strong>More than half</strong> of the eligible population voted during the 2018 midterm elections! This equates to <strong>122.3 million</strong> active particpants engaged
+                in the US political system.  The November midterm has proven to be the election with the <strong>highest turnout rate since the 1978 midterm</strong>. 
+                2018 also marked the <strong>first time since 1982 </strong> the voter turnout rate in a midterm election surpassed 50%.   </p>
     
-            <p class="lead">The November 2018 election resulted in a historic 11 percentage point increase compared to the 2014 midterm election.
-               The 11% increase was driven by stronger voter participation rates among all voting age and major
+            <p class="lead">The November 2018 election resulted in a historic <strong>11.5 percentage</strong> point increase compared to the 2014 midterm election.
+               The 11.5 percentage point increase was driven by stronger voter participation rates across all voting ages and major
                racial and ethnic groups. 53% of the voting-age population voted in 2018, making the year the highest midterm turnout in four decades.  The historic turnout reversed
-               the trajectory of the 2014 election, which had the lowest engagement rate at 42%.  </p>
+               the trajectory of the <strong>2014</strong> election, which had the <strong>lowest midterm engagement rate of 42%.</strong>  </p>
     
-            <p class="lead" >Below is a summary of demographic groups influencing the historic 11% increase in the 2018 midterm election.</p>   
+            <p class="lead" >Below is a summary of voter turnout rates by demographic group.  Provides insight into how demographic populations influenced 2018 midterm election.</p>   
             
             <table class="table table-sm table-hover text-center">
             <thead>
@@ -581,12 +565,12 @@
             </table>
             
             <ul class="list-unstyled pl-5 pr-5">
-            <li class="lead" >A Few Highlights...
+            <li class="lead font-italic" >A Few Highlights...
                 <ul>
-                    <li>Young voters were highly energized! With a 79% increase, voter turnout among 18 to 29 year olds had the largest percentage increase for any age group. </li>
+                    <li>Young voters were highly energized! With a <strong>79% increase</strong>, voter turnout among 18 to 29 year olds had the largest percentage increase for any age group. </li>
                     <li>Among men and women, voter turnout increased by 11 and 12 percentage points respectively.</li>
-                    <li>Voter turnout increased among major racial and ethnic groups.  Increase of 11 percentage points for Non-Hispanic black voters, a 50% increase in Hispanic voter turnout and a 13 percentage point increase for non-Hispanic Asians.</li>
-                    <li>Those with higher levels of education had higher levels of voter turnout in 2018.  Those with less than a high school education had the smallest increase in voter turnout (5 percentage points). Those with a high school diploma or equivalent had the second-lowest increase (8 percentage points).</li>
+                    <li>Voter turnout increased among major racial and ethnic groups.  Increase of 11 percentage points for Non-Hispanic black voters, a 50 percentage point increase in Hispanic voter turnout and a 13 percentage point increase for non-Hispanic Asians.</li>
+                    <li>Those with higher levels of education had higher levels of voter turnout in 2018.  Those with less than a high school education had the smallest increase in voter turnout (5 percentage points). Voters with a high school diploma or equivalent had the second-lowest increase (8 percentage points).</li>
                     <li>Voting by native-born and naturalized citizens showed comparable increases of 12 percentage points.</li>
                 </ul>    
             </li>    
@@ -605,7 +589,7 @@
                 
                 <!-- gender gap poll only “national” election of 2018: the national popular vote for the U.S. House-->
             <p class="lead"> There were wide differences in voting preferences between men and women. The gender gap in 
-                voting preference is not new, but in 2018, the 23-point gap was widest it has been since 1992.
+                voting preference is not new, but in 2018, the <strong>23-point gap</strong> was widest it has been since 1992.
                 Male voters preferred the Republican candidate by 4 percentage points, while female voters preferred 
                 their Democratic candidate by 19 points.
             </p>
@@ -745,28 +729,127 @@
         <!-- Title -->
         <h2 class="title has-text-centered text-info">Voting Participation By Age</h2>
 
-        <p class="lead">During the 2018 mid-term election, the three younger generations (ages 18-53) casted 62 million votes.  60.1 million votes came from Baby Boomers
-            and older generations. With double digit increases, voter turnout was higher among adults of all ages.  Younger adults showed
-            the highest voter turnout increase. Turnout among adults under 25 nearly doubled to 32.4%. Turnout rates for adults 25-34 increased 14 percentage points to 
-            42.1% and 13 points among those between 35-44. Young voters (age 18-29) voted for Democrats by a 35-point margin 
-            in 2018. 67% of voters age 18-29 and 58% of voters age 30-44 favored their Democratic candidate. Voters 45 and 
-            older were divided among political parties.  50% of this population voted Republican and 49% Democrat.</p>
+        <p class="lead">Of the 122.3 million votes, <strong>GenZ and Millenials reported casting 25% of the votes</strong> in the November election. GenZ only had 4% of the vote. However, as they continue to reach voting age, 
+            GenZ's political impact will likely be felt more during the 2020 presidental election.  GenZ's are expected to make up 10% of the eligible voting population in 2020. 
+            <strong>Millenials</strong> (age 22-37 in 2018) <strong>almost doubled their votes in 2018</strong> (from 13.7% to 26.1%). 
+            2018 was the first time GenX (age 25-53 in 2018) had more than 30 million votes in a midterm.
             
-            
-        <p class="lead">Although older age groups continued to be more likely than younger groups to vote in the midterms, 
-            their turnout increases were more moderate.  66.1% of adults 65 and older voted in the 2018 midterm, up from 
-            59.4% in the 2014 midterm. Those ages 55 to 64 increased their turnout rate by 7.8 percentage points.
-            Baby Boomers, those ages 54 to 72 in 2018, had their highest-ever midterm election turnout (64%, the same rate as the Silent Generation) 
-            and cast more votes than they ever have in a midterm (44.1 million). </p>
-                
-                
-        <p>The difference in turnout by gender varied by age. Woman had a stronger turnout rate across all age groups. Among younger voters (18 to 44), the gender gap was wider than the gap for older voters (45 and older).
-             The gender gap is a follows in percentage points:</p>
-        <p>
-            18-24 = 5.8, 25-34 = 4.2, 35-44 = 5.4, 45-54 = 3, 55-64 = 2.6, 65+ = 3.2
-        </p>
 
-        <!-- Creating containers for svg-->
+    <!-- Horizontal Bar Chart-->
+    <div id="graphic"></div>
+   
+
+      <script>
+      (function() {  
+    let data = [{
+                    "name": "GenZ",
+                    "value": 4.5,
+            },
+                {
+                    "name": "Millenial",
+                    "value": 26.1,
+            },
+                {
+                    "name": "GenX",
+                    "value": 31.6,
+            },
+                {
+                    "name": "Boomers",
+                    "value": 44.1,
+            },
+                {
+                    "name": "Silent/Prior",
+                    "value": 16.0,
+            },
+                ];
+
+            //sort bars based on value
+            data = data.sort(function (a, b) {
+                return d3.ascending(a.value, b.value);
+            })
+
+            //set up svg using margin conventions
+            let margin = {
+                top: 15,
+                right: 25,
+                bottom: 15,
+                left: 65
+            };
+
+            let width = 360 - margin.left - margin.right,     //960
+                height = 250 - margin.top - margin.bottom;   //500
+
+            let svg = d3.select("#graphic").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            let x = d3.scale.linear()
+                .range([0, width])
+                .domain([0, d3.max(data, function (d) {
+                    return d.value;
+                })]);
+
+            let y = d3.scale.ordinal()
+                .rangeRoundBands([height, 0], .1)
+                .domain(data.map(function (d) {
+                    return d.name;
+                }));
+
+            //make y axis to show bar names
+            let yAxis = d3.svg.axis()
+                .scale(y)
+                //no tick marks
+                .tickSize(0)
+                .orient("left");
+
+            let gy = svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+
+            let bars = svg.selectAll(".bar")
+                .data(data)
+                .enter()
+                .append("g")
+
+            //append rects
+            bars.append("rect")
+                .attr("class", "bar")
+                .attr("y", function (d) {
+                    return y(d.name);
+                })
+                .attr("height", y.rangeBand())
+                .attr("x", 0)
+                .attr("width", function (d) {
+                    return x(d.value);
+                });
+
+            //add a value label to the right of each bar
+            bars.append("text")
+                .attr("class", "label")
+                //y position of the label is halfway down the bar
+                .attr("y", function (d) {
+                    return y(d.name) + y.rangeBand() / 2 + 4;
+                })
+                //x position is 3 pixels to the right of the bar
+                .attr("x", function (d) {
+                    return x(d.value) + 3;
+                })
+                .text(function (d) {
+                    return d.value;
+                });      
+        })()
+      </script>  
+              
+        <p class="lead"> With 44.1 million votes cast, <strong>Boomers</strong> (age 54-72 in 2018) <strong>cast more votes than they ever have.</strong> 
+            Although older age groups continued to be more likely than younger groups to vote in the midterms, 
+            their turnout increases were more moderate and lower then the younger generations.  66.1% of adults 65 and older voted in the 2018 midterm, up from 
+            59.4% in the 2014 midterm. Those ages 55 to 64 increased their turnout rate by 7.8 percentage points.
+            <strong>Baby Boomers</strong>, those ages 54 to 72 in 2018, <strong>had their highest-ever midterm election turnout</strong> (64%, the same rate as the Silent Generation) 
+        </p>    
+       
+        <!-- Age trend charts. Creating containers for svg-->
         <div class="container">
                 <div class="row">
                   <div class="col">
@@ -1092,6 +1175,13 @@
             })() 
         </script>
     </div>
+    <br>
+    <div class = "age_text pl-5 pr-5">
+            <p class="lead">Age also influenced how people voted. Young voters age 18-29 voted for Democrats by a 35-point margin 
+            in 2018. 67% of voters age 18-29 and 58% of voters age 30-44 favored their Democratic candidate. Voters 45 and 
+            older were divided among political parties.  50% of voters 45 and older voted Republican and 49% Democrat.</p>      
+    </div>                      
+
        
    <br>
     <br>
@@ -1099,19 +1189,24 @@
     <div class="multiple_grids pl-5 pr-5">
            <!-- Title -->
            <h2 class="title has-text-centered text-danger">Voting Participation By Race</h2>
-   
+
+           <p class="lead"><strong>Voter turnout among ALL major racial and ethnic groups increased</strong>. Turnout rates for Hispanics and Asians
+            reached 40%, equating to a 13 percentage point increase from 2014. Interesting to note because voter turnout rates for these groups reached a historic low
+            of 27% during the 2014 mid-term election. Voter turnout for Whites (57.5%) and Blacks (51.4%) increased 11.7 and 10.8
+            percentage points respectively. </p>
+
            <p class="lead">Considering the variable of race provides additional insights; especially around race and educational lines.
-            More white woman voted for Democrats in 2018 than in 2016. In the 2018 mid-term election, their vote were split evenly between
-            Democrats and Republicans (49% to 49%).  This shift is notable because in the 2014 mid-term election, white woman votes skewed  
-            towards Republicans by 12 points. In the 2018 mid-term, a large number of nonwhite women voted for Democrats. In particular, Hispanic women
-            shifted to the left in greater numbers in 2018.
+            <strong>More white woman voted for Democrats in 2018 than in 2016</strong>. In the 2018 mid-term election, their votes were split evenly between
+            Democrats and Republicans (49% to 49%).  This shift is notable because <strong>in the 2014 mid-term election, white woman votes skewed  
+            towards Republicans by 12 points</strong>. In the 2018 mid-term, a large number of nonwhite women voted for Democrats. In particular, <strong>Hispanic women
+            shifted to the left in greater numbers in 2018</strong>. </p>
         
-            <p class="lead"> Education level is a strong predictor in determining a voter's party preferences. White woman voters were divided by their 
+            <p class="lead"> Education level is a strong predictor in determining a voter's party preference. White woman voters were divided by their 
             educational backgrounds (a significant 34 point gap). White woman without a college degree voted for Republicans
             by 14 points (56% to 42%).  White women with a college degree voted for Democrats by 20 points (59% to 39%).  </p>
 
-            <p class="lead">In line with the 2016 presidential election, white men favored Republicans and voted Republican 60% to 39% Democrat.  African Americans voted overwhelmingly 
-            90% Democrat. Voting by gender within the African American community were comparable. 88% of African American men voted for their Democratic candidate while African American women voted at 92%.   </p>
+            <p class="lead">In line with the 2016 presidential election, <strong>white men favored Republicans and voted Republican 60%</strong> to 39% Democrat.  <strong>African Americans voted overwhelmingly 
+            90% Democrat</strong>. Voting by gender within the African American community were comparable. 88% of African American men voted for their Democratic candidate while African American women voted at levels of 92%.   </p>
     </div>    
    <br>
     
@@ -1120,12 +1215,13 @@
      
      <h2 class="title has-text-centered text-success">Shared Voting Interests</h2>
      <p class="lead">Issues around gender and racial diversity, abortion and sexual harassment continue to be heated and divisive political issues. 
-            Other concerns also drove voters to the polls during the mid-term election. Some views are shared across party lines. Others not so much.  
+            Multiple social interests and concerns drove millions of voters to the polls during the 2018 midterm election. Some shared strong support 
+            across party lines. Others not so much.....  </p>
       <div class="multiple_grids">        
 
         <!-- Title -->           
            <ul class="list-group text-monospace">
-                <li class="list-group-item active">Additional Voting Issues/Concerns</li>
+                <li class="list-group-item active">Voting issues/concerns that influenced voters in the 2018 election</li>
                 <li class="list-group-item">83% of voters said “recent extremist violence” was an important factor in their vote.</li>
                 <li class="list-group-item">Almost seven in 10 voters believe the economy was in good shape.</li>
                 <li class="list-group-item">72% of voters who supported Democrat candidates believe sexual harassment is a "very serious problem".</li>
@@ -1138,28 +1234,44 @@
                 <li class="list-group-item">10% of voters said gun policy was the top issue facing the country.</li>
                 <li class="list-group-item">10% of voters said gun policy was the top issue facing the country.</li>
                 <li class="list-group-item">16% of voters voted for the first time in a midterm election. Of that group, 62 percent voted for Democrats and 36 percent voted for Republicans.</li>           
-                <li class="list-group-item">38% of voters said they cast their ballot to oppose Trump, while 26 percent voted to support him. Thirty-three percent said Trump was not a factor in their vote.</li>                                     
+                <li class="list-group-item">38% of voters said they cast their ballot to oppose Trump, while 26% voted to support him. 33% said Trump was not a factor in their vote.</li>                                     
             </ul>
-        </div>      
-    </div>     
-
-
+        </div>    
+        <br>
+        <p class="lead">Other important social issues such as the environment, rising college tuition, student loan debt and 
+            LGBTQ+ challenges are expected to influence voters as they head into the 2020 presidential election. </p>
             
-
-
-
+    </div>     
+            
     <br>
-    <br>
+
+  
+    <!--Emerging Factors-->
+    <div class="variables_to_watch pl-5 pr-5">
+        <h2 class="title has-text-centered text-success">Emerging Trends In Voting</h2>
+        <p class="lead"><strong>Voter Security:</strong> Growing concerns about election security ranging from system hacking and other technological threats to increased foreign interference. </p> 
         
-
-
-
+        <p class="lead"><strong>Voter Purges:</strong> There was a dramatic spike in voter purges leading up to the 2018 midterm election. 
+            Higher purge rates skew toward southern states. Between 2016 and 2018, Georgia, Florida and North Carolina removed between 7%-10% of 
+            registrations from their voter lists. Alabama's purging activity resulted in the strongest impact on potential voters. The state <strong>purged 658,000
+            voters since 2015</strong>.  This is significant providing Alabama had 3.3 million registred voters in 2016. Thats approximently 20% of Alabama's voters.
+            The purge may increase Alabama's risk of potentially disenfranchising a significant percentage of eligible citizens. </p> 
+        
+        <p class="lead"> <strong>Alternative voting</strong>, categorized as voting in person, by mail and early voting, continues to change how voters vote.
+            In 2018, 40% of voters used an alternative voting method. Early voting was available in 39 states. Just 3 states have all 
+            mail voting systems (Washington, Oregeon and Colorado). Utah, Texas and Georgia had the highest percentage point increase 
+            in alternative voting rates compared to 2014 (increased 36%, 25% and 21% respectively). 
+            </p>
+        <p class="lead"> <strong>Early voting:</strong> 36 million voters cast their ballots ahead of the November 2018 election.
+            Early voting in Texas, Nevada and Arizona surpassed expectations. In Texas, more people voted early in the 2018 election 
+            than TOTAL voted in 2014. Republican enthusiasm for Donald Trump and Democrat's desire to remove him from office are cited to be reasons for  
+            the increases. </p>
+        <p class="lead">   </p>
+        <p class="lead"> <strong>Voter suppression and barriers to voting</strong> continue to cause concern.  New laws in Georgia, North Dakata and Iowa have passed that make voting more difficult.
+            Practices such as closing or decreasing polling sites, rejecting abscentee ballots, "missing" votes by mail and voter intimidation are examples of such barriers. </p>
 </div>
-
-
-
-
-
+<br>
+<br>
 
 <!--- Bootstrap Files -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
